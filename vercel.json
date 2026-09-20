@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/deck", "destination": "/deck/index.html" },
+    { "source": "/demo", "destination": "/demo/index.html" }
+  ]
+}
