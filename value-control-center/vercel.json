@@ -1,4 +1,4 @@
 {
   "cleanUrls": true,
-  "rewrites": [{ "source": "/:path((?!api/).*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/:view(overview|customers|agents|playbooks|soc-value|method)", "destination": "/index.html" }]
 }
