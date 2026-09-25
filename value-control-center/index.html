@@ -912,7 +912,7 @@ async function ask(q){if(busy)return;openAI();$('#suggest').hidden=true;$('#aiTe
 /* ================= ROUTING & EVENTS ================= */
 const VIEWS=['overview','customers','agents','playbooks','soc-value','method'],SUB=['layer1','layer2','layer3','anti','decision','formula','pipeline'];
 const CRUMB={overview:'Customer Success · Portfolio',customers:'Customers',agents:'Customer agents',playbooks:'Playbooks & action queue','soc-value':'Value scorecard',method:'Method & evidence'};
-function route(){const h=(location.hash||'').slice(1);const v=VIEWS.includes(h)?h:SUB.includes(h)?'soc-value':'overview';if(v!==S.view){closeDrawer();closeAI()}S.view=v;
+function route(){const h=(location.hash||'').slice(1)||location.pathname.replace(/^\/+|\/+$/g,'');const v=VIEWS.includes(h)?h:SUB.includes(h)?'soc-value':'overview';if(v!==S.view){closeDrawer();closeAI()}S.view=v;
   $$('.view').forEach(el=>el.hidden=el.id!=='view-'+v);$$('.rail a').forEach(a=>a.setAttribute('aria-current',a.dataset.view===v?'page':'false'));$('#crumb').textContent=CRUMB[v];
   if(v!=='soc-value'&&S.walk>=0)walk(-1);
   if(SUB.includes(h)){const t=document.getElementById(h);if(t)setTimeout(()=>t.scrollIntoView({behavior:'smooth',block:'start'}),30)}else window.scrollTo(0,0)}
