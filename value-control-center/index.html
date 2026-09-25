@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B57D0">
+<meta name="description" content="Value Control Center: customer success portfolio and SOC value scorecard. Synthetic demo by Or Maman.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Ccircle cx=%227%22 cy=%227%22 r=%224%22 fill=%22%234285F4%22/%3E%3Ccircle cx=%2217%22 cy=%227%22 r=%224%22 fill=%22%23EA4335%22/%3E%3Ccircle cx=%227%22 cy=%2217%22 r=%224%22 fill=%22%23FBBC04%22/%3E%3Ccircle cx=%2217%22 cy=%2217%22 r=%224%22 fill=%22%2334A853%22/%3E%3C/svg%3E">
+<title>Value Control Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Code:wght@400;500&display=swap">
+<style>html,body{margin:0}[hidden]{display:none!important}
+:root{
+  --bg:#F8FAFD; --surface:#FFFFFF; --surface2:#F0F4F9; --tint:#E9EEF6; --line:#DDE3EA; --line2:#C4CBD4;
+  --ink:#1F1F1F; --ink2:#444746; --ink3:#5F6368;
+  --blue:#0B57D0; --blue-soft:#D3E3FD; --blue-ink:#041E49; --blue-bar:#1A73E8;
+  --green:#146C2E; --green-soft:#C4EED0; --green-bar:#34A853;
+  --amber:#8A4D00; --amber-soft:#FFEFC2; --amber-bar:#F9AB00;
+  --red:#B3261E; --red-soft:#F9DEDC; --red-bar:#EA4335;
+  --g1:#4285F4; --g2:#EA4335; --g3:#FBBC04; --g4:#34A853;
+  --shadow:0 1px 2px rgba(60,64,67,.12),0 1px 3px 1px rgba(60,64,67,.08); --on-blue:#FFFFFF;
+  --font:'Google Sans',Roboto,Arial,sans-serif; --mono:'Google Sans Code','Roboto Mono',ui-monospace,monospace;
+  --r:20px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#131314; --surface:#1E1F20; --surface2:#282A2C; --tint:#2A2F37; --line:#3C4043; --line2:#5F6368;
+  --ink:#E3E3E3; --ink2:#C4C7C5; --ink3:#A8ABAE;
+  --blue:#A8C7FA; --blue-soft:#0B3D91; --blue-ink:#D3E3FD; --blue-bar:#7CACF8;
+  --green:#6DD58C; --green-soft:#0F3D1F; --green-bar:#6DD58C;
+  --amber:#FDD663; --amber-soft:#3F2E00; --amber-bar:#FDD663;
+  --red:#F2B8B5; --red-soft:#5C1A16; --red-bar:#F28B82;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 1px 3px 1px rgba(0,0,0,.25); --on-blue:#062E6F;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#131314; --surface:#1E1F20; --surface2:#282A2C; --tint:#2A2F37; --line:#3C4043; --line2:#5F6368;
+  --ink:#E3E3E3; --ink2:#C4C7C5; --ink3:#A8ABAE;
+  --blue:#A8C7FA; --blue-soft:#0B3D91; --blue-ink:#D3E3FD; --blue-bar:#7CACF8;
+  --green:#6DD58C; --green-soft:#0F3D1F; --green-bar:#6DD58C;
+  --amber:#FDD663; --amber-soft:#3F2E00; --amber-bar:#FDD663;
+  --red:#F2B8B5; --red-soft:#5C1A16; --red-bar:#F28B82;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 1px 3px 1px rgba(0,0,0,.25); --on-blue:#062E6F;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p{margin:0}
+h1,h2,h3{text-wrap:balance;font-weight:500;letter-spacing:-.01em}
+button{font:inherit;color:inherit}
+.num{font-family:var(--font);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.code{font-family:var(--mono)}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.muted{color:var(--ink3)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:8px}
+
+/* shell */
+.app{display:grid;grid-template-columns:72px 1fr;min-height:100%}
+.rail{position:sticky;top:env(safe-area-inset-top,0px);height:100vh;display:flex;flex-direction:column;align-items:center;gap:6px;padding-block:14px;border-right:1px solid var(--line);background:var(--surface)}
+.logo{width:40px;height:40px;border-radius:12px;display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:9px;background:var(--surface2);margin-bottom:12px}
+.logo i{border-radius:50%}
+.rail a{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;color:var(--ink3);text-decoration:none;position:relative}
+.rail a:hover{background:var(--surface2);color:var(--ink)}
+.rail a[aria-current="page"]{background:var(--blue-soft);color:var(--blue-ink)}
+.rail a svg{width:22px;height:22px}
+.rail .tip{position:absolute;left:58px;white-space:nowrap;background:var(--ink);color:var(--bg);font-size:12px;padding:4px 8px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .15s}
+.rail a:hover .tip{opacity:1}
+.rail .spacer{flex:1}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--blue-bar);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:500}
+.main{min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;align-items:center;gap:12px;padding:10px 24px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+.brand b{font-weight:500;font-size:16px}
+.brand span{font-size:12px;color:var(--ink3)}
+.topbar .grow{flex:1}
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line2);background:var(--surface);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+.chip:hover{background:var(--surface2)}
+.chip[aria-pressed="true"]{background:var(--blue-soft);border-color:transparent;color:var(--blue-ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 20px;border-radius:20px;border:0;background:var(--blue);color:var(--on-blue);font-weight:500;font-size:14px;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.btn.tonal{background:var(--blue-soft);color:var(--blue-ink)}
+.btn.text{background:transparent;color:var(--blue);padding:0 12px}
+.btn svg{width:18px;height:18px}
+.sample-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink3);padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.sample-pill i{width:6px;height:6px;border-radius:50%;background:var(--amber-bar)}
+.page{padding:28px clamp(16px,3vw,40px) 64px;max-width:1320px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+.view[hidden]{display:none!important}
+
+/* cards */
+.card{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:24px}
+.card.flat{box-shadow:none;border:1px solid var(--line)}
+.card h2{font-size:20px}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;flex-wrap:wrap}
+.card-head p{color:var(--ink3);font-size:14px;margin-top:2px}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g-12{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+@media (max-width:1100px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g-12{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr}
+  .rail{position:fixed;bottom:0;top:auto;left:0;right:0;height:auto;flex-direction:row;justify-content:space-around;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));border-right:0;border-top:1px solid var(--line);z-index:30}
+  .rail .logo,.rail .spacer,.rail .avatar,.rail .tip{display:none}
+  .page{padding-bottom:110px}
+  .g4,.g3,.g2{grid-template-columns:1fr}
+  .topbar{padding:10px 16px;flex-wrap:wrap}
+  .hide-sm{display:none!important}
+}
+
+/* page header */
+.phead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.phead h1{font-size:clamp(26px,3.2vw,36px);line-height:1.15;margin-top:6px}
+.phead p{color:var(--ink3);margin-top:6px;max-width:62ch}
+
+/* KPI tiles */
+.kpi{display:flex;flex-direction:column;gap:6px}
+.kpi .label{font-size:13px;color:var(--ink3);display:flex;justify-content:space-between;gap:8px}
+.kpi .value{font-size:34px;font-weight:500;line-height:1.1}
+.kpi .value small{font-size:15px;color:var(--ink3);margin-left:4px;font-family:var(--font)}
+.kpi .foot{display:flex;justify-content:space-between;gap:8px;font-size:13px}
+.up{color:var(--green)} .down{color:var(--red)} .warn{color:var(--amber)}
+
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill.ok{background:var(--green-soft);color:var(--green)}
+.pill.warn{background:var(--amber-soft);color:var(--amber)}
+.pill.bad{background:var(--red-soft);color:var(--red)}
+.pill.info{background:var(--blue-soft);color:var(--blue-ink)}
+.pill.neutral{background:var(--surface2);color:var(--ink2)}
+.pill i{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+.banner{display:flex;align-items:center;gap:16px;padding:18px 22px;border-radius:var(--r);background:var(--blue-soft);color:var(--blue-ink);flex-wrap:wrap}
+.banner .ic{width:40px;height:40px;border-radius:12px;background:var(--surface);display:grid;place-items:center;color:var(--blue);flex:none}
+.banner .grow{flex:1;min-width:220px}
+.banner b{font-weight:500}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;margin:0 -24px;padding:0 24px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-weight:500;color:var(--ink3);font-size:12px;letter-spacing:.04em;text-transform:uppercase;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.acct{display:flex;align-items:center;gap:12px}
+.acct .mono{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#fff;font-weight:500;flex:none}
+.meter{display:inline-block;width:56px;height:4px;border-radius:2px;background:var(--line);vertical-align:middle;margin-left:8px;position:relative;overflow:hidden}
+.meter b{position:absolute;inset:0 auto 0 0;border-radius:2px}
+
+/* SOC value */
+.scenario{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:14px;color:var(--ink2)}
+.scenario .dot{width:4px;height:4px;border-radius:50%;background:var(--line2)}
+.seg{display:inline-flex;padding:3px;border-radius:12px;background:var(--surface2);gap:2px}
+.seg button{border:0;background:transparent;height:32px;padding:0 14px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.controls{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+.controls label{font-size:12px;color:var(--ink3);display:flex;flex-direction:column;gap:6px}
+
+.formula{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;padding:18px;border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow)}
+.formula .lhs{display:flex;align-items:center;padding:0 12px 0 6px;font-size:20px;font-weight:500;color:var(--ink)}
+.term{flex:1 1 180px;display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:14px;background:var(--surface2);text-decoration:none;color:inherit;border:1px solid transparent}
+.term:hover{border-color:var(--line2)}
+.term .op{font-family:var(--mono);font-size:13px;color:var(--ink3)}
+.term b{font-weight:500;font-size:14px}
+.term .v{font-family:var(--mono);font-size:18px;font-weight:500}
+
+.layer{display:grid;grid-template-columns:56px minmax(0,1fr);gap:0;border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow);overflow:hidden}
+.layer .stripe{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:24px}
+.layer .stripe .n{font-family:var(--mono);font-size:22px;font-weight:500}
+.layer .stripe .bar{width:4px;flex:1;border-radius:2px;margin-bottom:24px}
+.layer .body{padding:24px 24px 24px 4px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.layer-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.layer-head h2{font-size:20px}
+.layer-head p{color:var(--ink3);font-size:14px}
+.metric{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) minmax(0,1.1fr);gap:24px;align-items:center}
+@media (max-width:980px){.metric{grid-template-columns:1fr}}
+.m-name b{font-weight:500;font-size:16px;display:block}
+.m-name p{font-size:13px;color:var(--ink3);margin-top:4px;max-width:52ch}
+.m-vals{display:flex;align-items:flex-end;gap:18px}
+.m-vals .from{font-size:13px;color:var(--ink3)}
+.m-vals .from .num{font-size:18px;color:var(--ink2)}
+.m-vals .to .num{font-size:40px;font-weight:500;line-height:1}
+.m-vals .to small{font-size:14px;color:var(--ink3);margin-left:2px}
+.m-vals .arrow{color:var(--ink3);padding-bottom:6px}
+.m-meta{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px}
+.m-meta dt{color:var(--ink3)} .m-meta dd{margin:0;color:var(--ink)}
+.spark{width:100%;height:44px;display:block}
+
+.runs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;max-width:560px}
+.run{aspect-ratio:1;border-radius:8px;display:grid;place-items:center;font-family:var(--mono);font-size:11px;cursor:default;position:relative}
+.run.pass{background:var(--blue-bar);color:var(--on-blue)}
+.run.fail{border:2px dashed var(--red-bar);color:var(--red)}
+.run.base{background:var(--line2);color:var(--surface)}
+.run.basefail{border:2px dashed var(--line2);color:var(--ink3)}
+
+.path{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;position:relative}
+@media (max-width:760px){.path{grid-template-columns:1fr 1fr}}
+.stage{border-radius:14px;padding:14px;background:var(--surface2);display:flex;flex-direction:column;gap:4px;border-top:4px solid var(--stage)}
+.stage .k{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);font-weight:500}
+.stage b{font-weight:500}
+.stage.target{background:var(--red-soft)}
+.timing{display:flex;flex-direction:column;gap:10px}
+.trow{display:grid;grid-template-columns:84px minmax(0,1fr) 64px;gap:12px;align-items:center;font-size:13px}
+.track{position:relative;height:26px;border-radius:6px;background:var(--surface2)}
+.track .segm{position:absolute;top:0;bottom:0;display:grid;place-items:center;font-family:var(--mono);font-size:11px;color:#fff;overflow:hidden;white-space:nowrap}
+.gate{position:absolute;top:-6px;bottom:-6px;width:0;border-left:2px dashed var(--ink)}
+.gate-lbl{position:absolute;top:-24px;transform:translateX(-50%);font-size:11px;font-weight:500;white-space:nowrap;background:var(--surface);padding:0 4px}
+
+.funnel{display:grid;grid-template-columns:minmax(0,1fr) 32px minmax(0,1fr) 32px minmax(0,1fr);align-items:stretch}
+@media (max-width:760px){.funnel{grid-template-columns:1fr}.funnel .neq{transform:rotate(90deg);padding:4px 0}}
+.fbox{border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:6px;border:1px solid var(--line)}
+.fbox .k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.fbox .num{font-size:44px;font-weight:500;line-height:1.05}
+.fbox p{font-size:13px;color:var(--ink3)}
+.neq{display:grid;place-items:center;font-size:24px;color:var(--ink3)}
+.inputs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px 20px;margin-top:18px}
+@media (max-width:760px){.inputs{grid-template-columns:1fr 1fr}}
+.inputs label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--ink3)}
+.inputs .row{display:flex;justify-content:space-between}
+.inputs .row .num{color:var(--ink);font-size:13px}
+input[type=range]{width:100%;accent-color:var(--blue-bar)}
+.switch{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--ink2);cursor:pointer;user-select:none}
+.switch input{appearance:none;width:36px;height:20px;border-radius:10px;background:var(--line2);position:relative;cursor:pointer;transition:background .2s;margin:0;flex:none}
+.switch input::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .2s}
+.switch input:checked{background:var(--blue-bar)}
+.switch input:checked::after{left:18px}
+
+.gates{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:980px){.gates{grid-template-columns:1fr 1fr}}
+.gatebox{border-radius:14px;padding:14px;border:1px solid var(--line);display:flex;flex-direction:column;gap:6px;font-size:13px}
+.gatebox b{font-weight:500;font-size:14px}
+.decision{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.decision span{flex:1 1 120px;text-align:center;padding:12px;border-radius:12px;font-weight:500;background:var(--surface2);color:var(--ink3);border:2px solid transparent}
+.decision span.on{background:var(--surface);color:var(--ink);border-color:var(--blue)}
+
+.readout{font-size:18px;line-height:1.55;padding:20px 22px;border-radius:16px;background:var(--surface2);max-width:80ch}
+.cadence{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:760px){.cadence{grid-template-columns:1fr}}
+.cad{border-radius:14px;padding:16px;background:var(--surface2);display:flex;flex-direction:column;gap:6px;font-size:13px}
+.cad b{font-size:15px;font-weight:500}
+
+.pipeline{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,.9fr);gap:12px}
+@media (max-width:980px){.pipeline{grid-template-columns:1fr}}
+.pcol{display:flex;flex-direction:column;gap:8px}
+.pcol h3{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);font-weight:500;margin-bottom:2px}
+.src{display:flex;gap:10px;align-items:flex-start;padding:12px;border-radius:12px;background:var(--surface2);font-size:13px}
+.src b{font-weight:500;display:block;font-size:14px}
+.src .sw{width:8px;height:8px;border-radius:2px;margin-top:6px;flex:none}
+
+.anti{display:grid;grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);gap:10px 12px;align-items:center;font-size:14px}
+.anti .k{color:var(--ink3);text-decoration:line-through}
+.anti .arr{color:var(--ink3);text-align:center}
+
+/* method */
+.defs{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);font-size:14px}
+.defs dt,.defs dd{padding:12px 0;border-bottom:1px solid var(--line);margin:0}
+.defs dt{font-weight:500;padding-right:16px}
+.defs dd{color:var(--ink2)}
+@media (max-width:760px){.defs{grid-template-columns:1fr}.defs dt{border-bottom:0;padding-bottom:0}}
+ol.clean{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:var(--ink2)}
+
+/* AI panel */
+.ai{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--surface);box-shadow:-8px 0 24px rgba(0,0,0,.12);z-index:50;display:flex;flex-direction:column;transform:translateX(105%);transition:transform .25s ease;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.ai.open{transform:none}
+.ai-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.ai-head .spark-ic{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--g1),var(--g2) 45%,var(--g3) 70%,var(--g4));color:#fff}
+.ai-head b{font-weight:500}
+.ai-head .grow{flex:1}
+.iconbtn{width:36px;height:36px;border-radius:50%;border:0;background:transparent;display:grid;place-items:center;cursor:pointer;color:var(--ink2)}
+.iconbtn:hover{background:var(--surface2)}
+.ai-log{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:92%;padding:12px 14px;border-radius:16px;font-size:14px;line-height:1.55;white-space:pre-wrap}
+.msg.bot{background:var(--surface2);border-top-left-radius:4px}
+.msg.me{background:var(--blue-soft);color:var(--blue-ink);align-self:flex-end;border-top-right-radius:4px}
+.msg.note{background:transparent;color:var(--ink3);font-size:12px;padding:0}
+.suggest{display:flex;flex-direction:column;gap:6px;padding:0 18px 12px}
+.suggest button{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:10px 12px;font-size:13px;cursor:pointer}
+.suggest button:hover{background:var(--surface2)}
+.ai-input{display:flex;gap:8px;padding:12px 18px 16px;border-top:1px solid var(--line)}
+.ai-input textarea{flex:1;resize:none;height:44px;border-radius:12px;border:1px solid var(--line2);background:var(--surface);color:var(--ink);font:inherit;font-size:14px;padding:11px 12px}
+.ai-foot{font-size:11px;color:var(--ink3);padding:0 18px 12px}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.on{opacity:1;pointer-events:auto}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:14px;opacity:0;transition:all .2s;z-index:60;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%)}
+
+/* present mode */
+body.present .rail,body.present .hide-present{display:none!important}
+body.present .app{grid-template-columns:1fr}
+body.present .page{max-width:1480px;gap:28px}
+body.present{font-size:16px}
+body.present .phead h1{font-size:44px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.fade-in{animation:fi .35s ease both}
+@keyframes fi{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ---- additions: customers, agents, playbooks, drawer, walkthrough ---- */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.search{display:flex;align-items:center;gap:8px;height:40px;padding:0 14px;border-radius:20px;background:var(--surface);border:1px solid var(--line2);min-width:220px;flex:1;max-width:360px}
+.search input{border:0;background:transparent;color:var(--ink);font:inherit;font-size:14px;outline:none;width:100%}
+select.sel{height:40px;border-radius:20px;border:1px solid var(--line2);background:var(--surface);color:var(--ink);font:inherit;font-size:14px;padding:0 14px}
+tr.click{cursor:pointer}
+tr.click:hover td{background:var(--surface2)}
+th button{all:unset;cursor:pointer;display:inline-flex;gap:4px;align-items:center}
+th button:focus-visible{outline:2px solid var(--blue)}
+.kpi-btn{all:unset;cursor:pointer;display:block}
+.agent-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:1100px){.agent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.agent-grid{grid-template-columns:1fr}}
+.agent-card{display:flex;flex-direction:column;gap:12px}
+.agent-card .top{display:flex;gap:12px;align-items:center}
+.agent-card .top .grow{flex:1;min-width:0}
+.agent-card .top b{font-weight:500;display:block}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:12px}
+.mini-stats div{background:var(--surface2);border-radius:10px;padding:8px 10px}
+.mini-stats b{display:block;font-size:15px;font-weight:500}
+.fleet{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:980px){.fleet{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.play{display:flex;flex-direction:column;gap:12px}
+.play .ic{width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
+.play ol{margin:0;padding-left:20px;color:var(--ink2);font-size:14px;display:flex;flex-direction:column;gap:6px}
+.queue-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.queue-row:last-child{border-bottom:0}
+.queue-row.done b{text-decoration:line-through;color:var(--ink3)}
+.check{width:22px;height:22px;border-radius:6px;border:2px solid var(--line2);background:transparent;cursor:pointer;display:grid;place-items:center;color:var(--on-blue);padding:0}
+.check.on{background:var(--blue-bar);border-color:var(--blue-bar)}
+.empty{text-align:center;padding:28px 12px;color:var(--ink3);font-size:14px}
+
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(640px,100%);background:var(--bg);z-index:55;transform:translateX(105%);transition:transform .25s ease;display:flex;flex-direction:column;box-shadow:-8px 0 24px rgba(0,0,0,.14);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;align-items:center;gap:14px;padding:18px 22px;background:var(--surface);border-bottom:1px solid var(--line)}
+.drawer-head .grow{flex:1;min-width:0}
+.drawer-head b{font-size:18px;font-weight:500;display:block}
+.drawer-body{flex:1;overflow-y:auto;padding:20px 22px 40px;display:flex;flex-direction:column;gap:16px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);background:var(--surface);padding:0 16px;overflow-x:auto}
+.tabs button{border:0;background:transparent;padding:12px 12px;font-size:14px;font-weight:500;color:var(--ink3);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--blue)}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.facts div{background:var(--surface);border-radius:14px;padding:12px 14px;border:1px solid var(--line)}
+.facts span{font-size:12px;color:var(--ink3);display:block}
+.facts b{font-size:20px;font-weight:500}
+.note-row{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:14px}
+.note-row .grow{flex:1}
+.field{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--ink3)}
+.field textarea,.field input{border-radius:12px;border:1px solid var(--line2);background:var(--surface);color:var(--ink);font:inherit;font-size:14px;padding:10px 12px;resize:vertical}
+.agenda{display:flex;flex-direction:column;gap:8px}
+.agenda .ag{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;align-items:center;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:14px}
+.agenda .ag .num{font-weight:500;color:var(--blue)}
+.modal{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:16px;background:rgba(0,0,0,.3)}
+.modal[hidden]{display:none}
+.modal .box{background:var(--surface);border-radius:24px;padding:24px;width:min(460px,100%);display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow)}
+
+.walk-on .walk-target{outline:3px solid var(--blue-bar);outline-offset:6px;border-radius:var(--r);position:relative;z-index:2}
+.walkbar{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:45;background:var(--ink);color:var(--bg);border-radius:18px;padding:14px 16px;display:flex;gap:14px;align-items:center;width:min(720px,calc(100% - 32px));box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.walkbar[hidden]{display:none}
+.walkbar .grow{flex:1;font-size:14px;line-height:1.45}
+.walkbar b{font-weight:500}
+.walkbar button{border:0;border-radius:14px;height:34px;padding:0 14px;font-weight:500;cursor:pointer;background:rgba(255,255,255,.14);color:inherit}
+.walkbar button.primary{background:var(--blue-bar);color:#fff}
+@media (max-width:760px){.walkbar{bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
+.ai-panel-card{background:linear-gradient(160deg,var(--blue-soft),var(--surface) 70%);}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="rail" aria-label="Main">
+    <div class="logo" aria-hidden="true"><i style="background:var(--g1)"></i><i style="background:var(--g2)"></i><i style="background:var(--g3)"></i><i style="background:var(--g4)"></i></div>
+    <a href="#overview" data-view="overview" aria-label="Portfolio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg><span class="tip">Portfolio</span></a>
+    <a href="#customers" data-view="customers" aria-label="Customers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 010 7M18 14.8c2 .8 3.2 2.6 3.6 5.2"/></svg><span class="tip">Customers</span></a>
+    <a href="#agents" data-view="agents" aria-label="Customer agents"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg><span class="tip">Customer agents</span></a>
+    <a href="#playbooks" data-view="playbooks" aria-label="Playbooks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg><span class="tip">Playbooks</span></a>
+    <a href="#soc-value" data-view="soc-value" aria-label="SOC value scorecard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg><span class="tip">Value scorecard</span></a>
+    <a href="#method" data-view="method" aria-label="Method and evidence"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 016.5 3H20v15H6.5A2.5 2.5 0 004 20.5v-15z"/><path d="M4 20.5A2.5 2.5 0 016.5 18H20v3H6.5"/></svg><span class="tip">Method &amp; evidence</span></a>
+    <div class="spacer"></div>
+    <div class="avatar" title="Or Maman">OM</div>
+  </nav>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="brand"><b>Value Control Center</b><span id="crumb">Customer Success · Portfolio</span></div>
+      <div class="grow"></div>
+      <span class="sample-pill hide-sm"><i></i>Sample data · fictional customers</span>
+      <button class="chip hide-sm" id="presentBtn" aria-pressed="false" title="Present mode (P)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Present</button>
+      <button class="btn" id="aiBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9z"/><path d="M19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9z"/></svg>Ask Success AI</button>
+    </header>
+
+    <!-- ============ OVERVIEW ============ -->
+    <section class="page view" id="view-overview" aria-label="Portfolio">
+      <div class="phead">
+        <div>
+          <p class="eyebrow">Value Control Center · Customer success, in focus</p>
+          <h1>Your portfolio, and where value needs proof</h1>
+          <p>Retention, health and the renewals that need a value story before the conversation happens.</p>
+        </div>
+        <div class="toolbar">
+          <select class="sel" id="segSel" aria-label="Segment"><option>All segments</option><option>Enterprise</option><option>Mid-market</option><option>Growth</option></select>
+          <div class="seg" role="group" aria-label="Period" id="periodSeg"><button data-p="30 days" aria-pressed="false">30d</button><button data-p="60 days" aria-pressed="false">60d</button><button data-p="90 days" aria-pressed="true">90d</button></div>
+        </div>
+      </div>
+      <div class="grid g4" id="kpis"></div>
+      <div id="focusBanner"></div>
+      <a class="banner" href="#soc-value" style="text-decoration:none;background:var(--surface2);color:var(--ink)">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="grow"><b>Stage 3 · SOC value pilot reached day 30.</b><br><span class="muted">11 of 12 attack scenarios contained, path containment down to 13 minutes. One owned gap blocks expansion.</span></div>
+        <span class="btn tonal">Open the value scorecard →</span>
+      </a>
+      <div class="grid g-12">
+        <div class="card">
+          <div class="card-head"><div><h2>Retention fuels growth</h2><p>Recurring revenue from the existing customer cohort</p></div><span id="nrrPill"></span></div>
+          <svg id="arrChart" viewBox="0 0 640 240" style="width:100%;height:auto;display:block" role="img" aria-label="ARR trend"></svg>
+          <div class="grid g3" style="margin-top:12px;font-size:13px" id="retStats"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><div><h2>A pulse on the portfolio</h2><p>Customer health distribution</p></div></div>
+          <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+            <svg viewBox="0 0 160 160" width="150" height="150" role="img" aria-label="Health distribution" id="donut"></svg>
+            <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:170px;font-size:14px" id="healthLegend"></div>
+          </div>
+        </div>
+      </div>
+      <div class="grid g-12">
+        <div>
+          <div class="card-head" style="margin-bottom:12px"><div><h2 style="font-size:20px">Your next best moves</h2><p>The signals that deserve a human touch</p></div><a class="btn text" href="#playbooks">View action queue →</a></div>
+          <div class="grid g3" id="moves"></div>
+        </div>
+        <div class="card ai-panel-card" style="display:flex;flex-direction:column;gap:12px">
+          <span class="pill info" style="align-self:flex-start">Customer agents</span>
+          <h2 style="font-size:22px">A little AI. A lot more possibility.</h2>
+          <p class="muted" style="font-size:14px">Agents handle the preparation. Your team builds the relationship.</p>
+          <div><span class="num" style="font-size:40px;font-weight:500" id="aiHours"></span> <span class="muted">hours estimated, returned</span></div>
+          <div class="grid g2" style="font-size:13px"><div><div class="num" style="font-size:20px">89.6%</div><span class="muted">Suggestions accepted</span></div><div><div class="num" style="font-size:20px">96.2%</div><span class="muted">Grounded responses</span></div></div>
+          <a class="btn" href="#agents" style="align-self:flex-start;text-decoration:none">Explore your agent team →</a>
+          <p class="muted" style="font-size:12px">Estimate, not measured savings. Human review before every customer action.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h2>The relationships behind the results</h2><p>Largest accounts, with their next chapter in view</p></div><a class="btn text" href="#customers">All customers →</a></div>
+        <div class="tbl-wrap"><table><thead><tr><th>Customer</th><th>Health</th><th>ARR</th><th>Adoption</th><th>Renewal</th><th>Next move</th></tr></thead><tbody id="topRows"></tbody></table></div>
+      </div>
+      <div class="grid g3" id="secondary"></div>
+    </section>
+
+    <!-- ============ CUSTOMERS ============ -->
+    <section class="page view" id="view-customers" aria-label="Customers" hidden>
+      <div class="phead"><div><p class="eyebrow">Customers</p><h1>Every relationship, one view</h1><p>Search, filter and open any account's agent for its briefing, notes and meeting prep.</p></div></div>
+      <div class="toolbar">
+        <label class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink3)"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="custSearch" placeholder="Search customers, owners, industries" aria-label="Search customers"></label>
+        <select class="sel" id="custSeg" aria-label="Segment"><option>All segments</option><option>Enterprise</option><option>Mid-market</option><option>Growth</option></select>
+        <select class="sel" id="custHealth" aria-label="Health"><option>All health</option><option>Healthy</option><option>Needs attention</option><option>At risk</option></select>
+        <span class="muted" id="custCount" style="font-size:13px"></span>
+      </div>
+      <div class="card"><div class="tbl-wrap"><table>
+        <thead><tr><th><button data-sort="name">Customer</button></th><th><button data-sort="health">Health</button></th><th><button data-sort="arr">ARR</button></th><th><button data-sort="adoption">Adoption</button></th><th><button data-sort="renewal">Renewal</button></th><th><button data-sort="nps">NPS</button></th><th>Owner</th></tr></thead>
+        <tbody id="custRows"></tbody></table></div></div>
+    </section>
+
+    <!-- ============ AGENTS ============ -->
+    <section class="page view" id="view-agents" aria-label="Customer agents" hidden>
+      <div class="phead"><div><p class="eyebrow">Customer agents</p><h1>Context is your unfair advantage</h1><p>Twelve account workspaces. Each keeps its own briefing, notes and meeting prep. A human reviews every customer-facing action.</p></div></div>
+      <div class="fleet">
+        <div class="card kpi"><div class="label">Account coverage</div><div class="value num">12/12</div><div class="foot muted">customer agents</div></div>
+        <div class="card kpi"><div class="label">Acceptance rate</div><div class="value num">89.6%</div><div class="foot muted">224 / 250 reviewed</div></div>
+        <div class="card kpi"><div class="label">Grounded response rate</div><div class="value num">96.2%</div><div class="foot muted">481 / 500 evaluated</div></div>
+        <div class="card kpi"><div class="label">Human review</div><div class="value">Always</div><div class="foot muted">before customer outreach</div></div>
+      </div>
+      <div class="agent-grid" id="agentGrid"></div>
+    </section>
+
+    <!-- ============ PLAYBOOKS ============ -->
+    <section class="page view" id="view-playbooks" aria-label="Playbooks" hidden>
+      <div class="phead"><div><p class="eyebrow">Playbooks</p><h1>A playbook for every turning point</h1><p>Choose a play, pick the customer, and its steps land in your action queue.</p></div></div>
+      <div class="grid g3" id="plays"></div>
+      <div class="card">
+        <div class="card-head"><div><h2>Your action queue <span class="pill neutral num" id="qCount"></span></h2><p>Saved in this browser. No external tasks or messages are created.</p></div></div>
+        <div id="queue"></div>
+      </div>
+    </section>
+
+    <!-- ============ SOC VALUE ============ -->
+    <section class="page view" id="view-soc-value" aria-label="Value scorecard" hidden>
+      <div class="phead">
+        <div>
+          <p class="eyebrow" id="scEyebrow"></p>
+          <h1>The Value Scorecard</h1>
+          <p>One critical path, three layers, 1 + 1 + 1 metrics. Every number carries its baseline, its gate, its owner and its evidence.</p>
+        </div>
+        <div class="controls">
+          <label>Scenario<div class="seg" role="group" aria-label="Scenario" id="presetSeg"><button data-preset="soc" aria-pressed="true">Stage 3 · SOC</button><button data-preset="general" aria-pressed="false">General CS</button></div></label>
+          <label>View as<div class="seg" role="group" aria-label="Pilot phase" id="phaseSeg"><button data-phase="baseline" aria-pressed="false">Baseline</button><button data-phase="day30" aria-pressed="true">Day 30</button></div></label>
+          <label>&#160;<button class="btn" id="walkBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Walkthrough</button></label>
+        </div>
+      </div>
+      <div class="scenario" id="scLine"></div>
+      <div class="formula" id="formula" aria-label="Value formula"></div>
+      <article class="layer" id="layer1"></article>
+      <article class="layer" id="layer2"></article>
+      <article class="layer" id="layer3"></article>
+      <div class="grid g2">
+        <div class="card" id="anti"></div>
+        <div class="card" id="trendCard"><div class="card-head"><div><p class="eyebrow">30-day trend</p><h2>Weekly checkpoints</h2><p>Same definitions every week, frozen on day 0.</p></div></div><div id="trends" style="display:flex;flex-direction:column;gap:14px"></div></div>
+      </div>
+      <div class="card" id="decision">
+        <div class="card-head"><div><p class="eyebrow">Day-30 decision</p><h2 id="decTitle"></h2><p id="decWhy"></p></div>
+          <label class="switch"><input type="checkbox" id="in-gap">Gap closed and suite retested</label></div>
+        <div class="gates" id="gates"></div>
+        <div class="decision" id="decRow"><span data-d="expand">Expand</span><span data-d="remediate">Remediate</span><span data-d="redesign">Redesign</span><span data-d="stop">Stop</span></div>
+      </div>
+      <div class="card" id="readoutCard">
+        <div class="card-head"><div><p class="eyebrow">Same scorecard · different altitudes</p><h2>Readout for the room</h2><p>The CSM translates. Every figure below is computed from the scorecard above.</p></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn tonal" id="copyRo">Copy</button><button class="btn tonal" id="aiRo">Rewrite with Success AI</button><button class="btn" id="exportBtn">Export brief</button></div></div>
+        <div class="seg" role="group" aria-label="Audience" id="altSeg" style="margin-bottom:14px"></div>
+        <p class="readout" id="readout"></p>
+        <div class="cadence" style="margin-top:16px" id="cadence"></div>
+      </div>
+      <div class="card" id="pipeline"></div>
+      <p class="muted" style="font-size:12px;text-align:center">Illustrative data · synthetic pilot · fictional customers · Or Maman</p>
+    </section>
+
+    <!-- ============ METHOD ============ -->
+    <section class="page view" id="view-method" aria-label="Method and evidence" hidden>
+      <div class="phead"><div><p class="eyebrow">Method &amp; evidence</p><h1>How every number is made</h1><p>Definitions are frozen before a pilot starts. Anything assumed is labelled as an assumption.</p></div></div>
+      <div class="card"><div class="card-head"><div><h2>Value scorecard definitions</h2></div></div>
+        <dl class="defs">
+          <dt>Critical-path MTTD / MTTContain</dt><dd>Median minutes on the named path only. Never blended with other alerts.</dd>
+          <dt>Scenario-suite containment</dt><dd>Attacks contained before crown-jewel impact ÷ scenarios run, inside the acceptance window.</dd>
+          <dt>Gross capacity created</dt><dd>Σ (baseline effort − pilot effort) across comparable cases.</dd>
+          <dt>Net capacity created</dt><dd>Gross capacity − review and exception overhead hours.</dd>
+          <dt>Capacity value</dt><dd>Net hours × agreed fully loaded rate. An assumption, labelled as one.</dd>
+          <dt>Verified cash savings</dt><dd>Only a real budget or staffing change: overtime, contract or tool spend.</dd>
+          <dt>Disruption avoided</dt><dd>An estimate that needs an agreed method and evidence before it is shown.</dd>
+        </dl></div>
+      <div class="card"><div class="card-head"><div><h2>Portfolio metric definitions</h2><p>How the portfolio view calculates each figure.</p></div></div><dl class="defs" id="kiDefs"></dl></div>
+      <div class="grid g2">
+        <div class="card"><div class="card-head"><div><h2>When there is no reliable baseline</h2></div></div>
+          <ol class="clean"><li>Build a comparison cohort with matched case types, severity and path.</li><li>Time-box a quiet baseline week and freeze definitions first.</li><li>Use scenario suites when production history is too noisy.</li><li>Show ranges and assumptions instead of false precision.</li><li>Report deltas with method notes, never absolutes without a denominator.</li></ol></div>
+        <div class="card"><div class="card-head"><div><h2>Attribution limits</h2></div></div>
+          <ol class="clean"><li>Pilots combine tuning, process, playbooks and AI. Never credit AI alone.</li><li>Fewer incidents is not less risk without coverage context.</li><li>Keep observations, calculations, assumptions and verified figures apart.</li><li>Watch for confounders: seasonality, staffing, attacker behaviour, logging gaps.</li><li>Say “associated with” until a causal design exists.</li></ol></div>
+      </div>
+      <div class="card"><div class="card-head"><div><h2>AI governance</h2><p>AI is a lever inside Layer 3, not a KPI.</p></div></div>
+        <div class="grid g2">
+          <div class="cad" style="background:var(--green-soft)"><b style="color:var(--green)">Measure</b><span>Analyst effort per comparable case, net of review overhead</span><span>Path MTTContain with investigation assist</span><span>Evidence references behind every generated claim</span></div>
+          <div class="cad" style="background:var(--red-soft)"><b style="color:var(--red)">Never report as value</b><span>“AI alerts handled”</span><span>“AI adoption %”</span><span>Model-generated savings without a source</span></div>
+        </div>
+        <p class="muted" style="font-size:13px;margin-top:14px">Humans stay accountable for material risk and financial conclusions.</p></div>
+    </section>
+  </div>
+</div>
+
+<!-- account drawer -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Customer agent" aria-hidden="true">
+  <div class="drawer-head"><span class="acct"><span class="mono" id="dMono" style="width:44px;height:44px;border-radius:14px"></span></span><div class="grow"><b id="dName"></b><span class="muted" style="font-size:13px" id="dSub"></span></div><button class="iconbtn" id="dClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="tabs" role="tablist" id="dTabs"><button role="tab" data-t="brief" aria-selected="true">Briefing</button><button role="tab" data-t="prep" aria-selected="false">Meeting prep</button><button role="tab" data-t="notes" aria-selected="false">Context notes</button><button role="tab" data-t="ask" aria-selected="false">Ask the agent</button></div>
+  <div class="drawer-body" id="dBody"></div>
+</aside>
+
+<!-- Success AI -->
+<aside class="ai" id="ai" aria-label="Success AI" aria-hidden="true">
+  <div class="ai-head"><div class="spark-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9z"/></svg></div><div class="grow"><b>Success AI</b><div class="muted" style="font-size:12px" id="aiStatus">Grounded in the portfolio and scorecard on screen</div></div>
+    <button class="iconbtn" id="aiNew" title="New chat" aria-label="New chat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9 9 9 0 00-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg></button>
+    <button class="iconbtn" id="aiClose" title="Close" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="ai-log" id="aiLog"></div>
+  <div class="suggest" id="suggest">
+    <button>What should I focus on today?</button>
+    <button>Write the one sentence the CFO can repeat about the SOC pilot.</button>
+    <button>What blocks expansion, and who owns it?</button>
+    <button>Summarize renewal risk for leadership.</button>
+  </div>
+  <form class="ai-input" id="aiForm"><textarea id="aiText" placeholder="Ask about the portfolio or the scorecard…" aria-label="Message"></textarea><button class="btn" id="aiSend" type="submit">Send</button></form>
+  <div class="ai-foot">Answers use fictional sample data. Do not enter confidential data.</div>
+</aside>
+
+<div class="modal" id="playModal" hidden><form class="box" id="playForm"><p class="eyebrow">Activate a success play</p><h2 id="playTitle" style="font-size:22px"></h2><label class="field">Customer<select class="sel" id="playAcct"></select></label><div style="display:flex;gap:8px;justify-content:flex-end"><button type="button" class="btn text" id="playCancel">Cancel</button><button class="btn" type="submit">Add to action queue</button></div></form></div>
+<div class="walkbar" id="walkbar" hidden><span class="pill info num" id="walkStep"></span><div class="grow" id="walkText"></div><button id="walkPrev">Back</button><button class="primary" id="walkNext">Next</button><button id="walkStop" aria-label="Stop walkthrough">✕</button></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+const money=n=>'$'+Math.round(n).toLocaleString('en-US');
+const M=n=>n>=1e6?'$'+(n/1e6).toFixed(2)+'M':'$'+Math.round(n/1e3)+'K';
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('on'),1900)}
+
+/* ================= DATA (sample portfolio, snapshot Sep 14, 2026) ================= */
+const C=[
+{id:'atlas',name:'Atlas Cloud',color:'#5264cf',industry:'Cloud infrastructure',segment:'Enterprise',owner:'Maya Chen',arr:2.1e6,health:91,adoption:88,renewal:42,nps:62,ttv:18,expansion:3.5e5,loss:5e4,contact:'Jordan Lee · VP Engineering',goal:'Reduce infrastructure provisioning time by 40%',signal:'Usage grew 24%. Three teams are ready to expand.',action:'Build an expansion proposal',type:'opportunity'},
+{id:'northstar',name:'Northstar',color:'#244840',industry:'Financial services',segment:'Enterprise',owner:'Alex Morgan',arr:1.65e6,health:48,adoption:41,renewal:23,nps:12,ttv:34,expansion:0,loss:5e4,contact:'Sam Rivera · Chief Operating Officer',goal:'Automate the monthly reporting cycle across 8 regions',signal:'Champion left. Active usage fell 31% in the last 30 days.',action:'Launch an executive recovery plan',type:'risk'},
+{id:'orbit',name:'Orbit Commerce',color:'#ba734f',industry:'Retail & commerce',segment:'Enterprise',owner:'Maya Chen',arr:1.42e6,health:84,adoption:79,renewal:76,nps:48,ttv:21,expansion:2.5e5,loss:3e4,contact:'Taylor Kim · VP Digital',goal:'Increase repeat purchase rate by 15%',signal:'Adoption of the analytics suite is ahead of plan.',action:'Prepare a value realization review',type:'healthy'},
+{id:'lumen',name:'Lumen Health',color:'#9a75be',industry:'Healthcare technology',segment:'Enterprise',owner:'Priya Shah',arr:1.28e6,health:94,adoption:92,renewal:115,nps:71,ttv:16,expansion:1.8e5,loss:0,contact:'Casey Park · Head of Operations',goal:'Cut patient onboarding time from 5 days to 2 days',signal:'Achieved their first outcome 12 days ahead of plan.',action:'Document the customer success story',type:'opportunity'},
+{id:'meridian',name:'Meridian Labs',color:'#518f9a',industry:'Data & analytics',segment:'Mid-market',owner:'Alex Morgan',arr:8.9e5,health:63,adoption:58,renewal:38,nps:25,ttv:28,expansion:9e4,loss:5e4,contact:'Jamie Fox · Director of Data',goal:'Launch self-service analytics for 200 business users',signal:'Two critical support issues are blocking adoption.',action:'Coordinate a support escalation',type:'watch'},
+{id:'vertex',name:'Vertex Systems',color:'#687d3e',industry:'Manufacturing',segment:'Enterprise',owner:'Priya Shah',arr:1.76e6,health:88,adoption:85,renewal:92,nps:54,ttv:20,expansion:3e5,loss:4e4,contact:'Morgan Blake · VP Technology',goal:'Connect production data across 12 facilities',signal:'Pilot exceeded target. Five sites are ready for rollout.',action:'Scope the next phase of deployment',type:'opportunity'},
+{id:'everfield',name:'Everfield',color:'#6a85a7',industry:'Professional services',segment:'Mid-market',owner:'Maya Chen',arr:7.6e5,health:79,adoption:74,renewal:64,nps:43,ttv:24,expansion:6e4,loss:0,contact:'Drew Wilson · Managing Partner',goal:'Improve consultant utilization by 10%',signal:'Executive sponsor attended the latest value review.',action:'Share the quarterly outcome summary',type:'healthy'},
+{id:'kinetic',name:'Kinetic',color:'#b09d63',industry:'Logistics',segment:'Mid-market',owner:'Alex Morgan',arr:5.4e5,health:52,adoption:46,renewal:51,nps:18,ttv:32,expansion:0,loss:6e4,contact:'Avery Ross · Head of Supply Chain',goal:'Reduce dispatch exceptions by 25%',signal:'Budget review is underway; key workflow use is declining.',action:'Build a measurable ROI recovery plan',type:'risk'},
+{id:'prism',name:'Prism Studio',color:'#ad7187',industry:'Media & design',segment:'Growth',owner:'Priya Shah',arr:3.2e5,health:90,adoption:87,renewal:142,nps:64,ttv:14,expansion:7e4,loss:0,contact:'Reese Cole · Creative Director',goal:'Reduce creative production handoffs by 30%',signal:'The full design organization has activated.',action:'Explore the enterprise workspace',type:'opportunity'},
+{id:'cobalt',name:'Cobalt Energy',color:'#5074ac',industry:'Energy',segment:'Enterprise',owner:'Maya Chen',arr:1.19e6,health:86,adoption:81,renewal:85,nps:52,ttv:22,expansion:1.9e5,loss:0,contact:'Quinn Reed · Director of Sustainability',goal:'Unify emissions reporting for all operating units',signal:'Reporting accuracy reached the agreed milestone.',action:'Prepare the renewal success narrative',type:'healthy'},
+{id:'terra',name:'Terra Foods',color:'#7f9570',industry:'Food & agriculture',segment:'Growth',owner:'Alex Morgan',arr:2.8e5,health:71,adoption:66,renewal:32,nps:35,ttv:26,expansion:3e4,loss:1e4,contact:'Finley Hayes · Operations Lead',goal:'Improve demand forecast accuracy by 20%',signal:'New users need enablement before the upcoming renewal.',action:'Schedule a team enablement session',type:'watch'},
+{id:'arc',name:'Arc Mobility',color:'#6f6ca0',industry:'Transportation',segment:'Mid-market',owner:'Priya Shah',arr:6.1e5,health:83,adoption:77,renewal:108,nps:49,ttv:19,expansion:1.1e5,loss:0,contact:'Skyler Lane · Head of Product',goal:'Launch fleet analytics in three new markets',signal:'Customer is on track for its second outcome milestone.',action:'Validate outcomes with the product team',type:'healthy'}];
+const byId=id=>C.find(c=>c.id===id);
+const band=h=>h<60?'At risk':h<75?'Needs attention':'Healthy';
+const bandCls=h=>h<60?'bad':h<75?'warn':'ok';
+const bandCol=h=>h<60?'var(--red-bar)':h<75?'var(--amber-bar)':'var(--green-bar)';
+
+const KI=[['Net revenue retention','(Starting ARR + expansion − contraction − churn) ÷ starting ARR. Same customer cohort; excludes new logos.','Target ≥ 110%'],['Gross revenue retention','(Starting ARR − contraction − churn) ÷ starting ARR. Expansion is excluded.','Target ≥ 95%'],['Customer health','Illustrative account composite: product usage 40%, outcomes 30%, relationship 20%, support 10%. Portfolio value is an unweighted average.','Healthy ≥ 75 · Watch 60–74 · Risk < 60'],['Renewal ARR at risk','Full ARR of accounts with health below 60 and a renewal in the next 90 days. Exposure, not a churn prediction.','Review weekly'],['Product adoption','Weekly active licensed users ÷ purchased seats, averaged equally across accounts.','Target ≥ 80%'],['Time to first value','Mean calendar days from kickoff to first verified customer outcome.','Target ≤ 21 days'],['Relationship NPS','Illustrative latest account NPS, averaged equally across accounts. Not a pooled survey NPS.','Target ≥ 40'],['AI hours returned','Modeled tasks × (12 minutes manual work − 3 minutes human review). Assumes 16 / 32 / 48 tasks per account over 30 / 60 / 90 days.','Estimate, not measured savings'],['AI acceptance rate','Suggestions accepted by a reviewer ÷ suggestions reviewed. Accepted does not mean executed.','Target ≥ 85%'],['Grounded response rate','Evaluated responses supported by account evidence ÷ responses evaluated. Illustrative evaluation set.','Target ≥ 95%']];
+
+const MEET={weekly:{name:'Weekly success sync',duration:30,audience:'Champion, project lead, CSM',objective:'Remove blockers and agree on the next measurable milestone.',agenda:['Progress since the last sync','Adoption and current blockers','Decisions, owners, and next steps'],weights:[30,40,30],questions:['What changed since our last meeting?','Which workflow is creating the most friction?','Who owns the next milestone, and when will we review it?']},
+qbr:{name:'Quarterly business review',duration:60,audience:'Business owner, champion, CSM',objective:'Validate quarterly value and agree on a shared success plan for the next quarter.',agenda:['Business priorities and changes','Value delivered and evidence','Adoption, gaps, and lessons','Next-quarter success plan'],weights:[15,35,20,30],questions:['Which outcome mattered most this quarter?','What evidence would your leadership consider proof of value?','What should we change in the next 90 days?']},
+ebr:{name:'Executive business review',duration:45,audience:'Executive sponsor, CISO, CS leadership',objective:'Align executives on business priorities, verified value, and decisions that need sponsorship.',agenda:['Strategic context','Outcome and value narrative','Executive decisions','Sponsorship and commitments'],weights:[20,30,30,20],questions:['Which business priorities have changed?','How should security outcomes be communicated to leadership?','What decision or sponsorship is needed today?']},
+escalation:{name:'Escalation call',duration:30,audience:'Customer lead, support owner, CSM',objective:'Establish the facts, agree on ownership, and restore a predictable communication cadence.',agenda:['Confirm impact and known facts','Containment and recovery options','Owners, timing, and next update'],weights:[35,35,30],questions:['What is the customer-confirmed business impact?','What is known, unknown, and still being investigated?','Who owns each action and when is the next update?']},
+renewal:{name:'Renewal planning',duration:45,audience:'Economic buyer, sponsor, account team',objective:'Confirm value, decision criteria, and a mutual timeline for the renewal.',agenda:['Value and unresolved gaps','Decision process and stakeholders','Scope and mutual action plan'],weights:[35,30,35],questions:['What must be true for the renewal to be successful?','Who is involved in the decision and procurement process?','Which value gaps should we close before the decision?']},
+kickoff:{name:'Implementation kickoff',duration:60,audience:'Project owner, technical lead, solution manager',objective:'Agree on scope, roles, dependencies, and the first verifiable value milestone.',agenda:['Outcomes and scope','Roles and technical dependencies','Milestones and first value','Risks and communication'],weights:[25,25,30,20],questions:['Which assets and workflows are in the agreed scope?','What dependencies could delay the first milestone?','What evidence will confirm that first value has been achieved?']},
+expansion:{name:'Expansion discovery',duration:45,audience:'Sponsor, new team lead, solution manager',objective:'Validate a new use case and its success criteria before proposing additional scope.',agenda:['Existing value and new priorities','New use case discovery','Success criteria and next decision'],weights:[25,45,30],questions:['Which additional team has a confirmed need?','What outcome is missing from the current scope?','What would a successful pilot prove?']}};
+
+const PLAYS=[{name:'Renewal rescue',col:'var(--red)',bg:'var(--red-soft)',desc:'Rebuild confidence before the renewal conversation.',steps:['Confirm the sponsor and decision process','Agree on a 30-day recovery outcome','Schedule an executive progress review'],def:'northstar'},
+{name:'Expansion readiness',col:'var(--green)',bg:'var(--green-soft)',desc:'Turn proven customer value into sustainable growth.',steps:['Validate the achieved business outcome','Identify the next team or use case','Co-create an outcome-based proposal'],def:'atlas'},
+{name:'Adoption accelerator',col:'var(--blue)',bg:'var(--blue-soft)',desc:'Help teams build habits that lead to measurable value.',steps:['Identify the highest-friction workflow','Run a focused champion enablement session','Measure activation and outcome completion'],def:'meridian'}];
+
+/* ================= STATE ================= */
+const S={view:'overview',seg:'All segments',period:'90 days',cq:'',cseg:'All segments',chealth:'All health',sort:'arr',sdir:-1,
+  preset:'soc',phase:'day30',alt:0,gapClosed:false,budget:false,inputs:null,reinv:70,acct:null,tab:'brief',meet:'renewal',walk:-1};
+let queue=store.get('vcc-queue-v1',null);
+if(!queue){queue=[{id:'q1',account:'northstar',title:'Confirm the new executive sponsor',date:'Sep 16',done:false},{id:'q2',account:'kinetic',title:'Share the 30-day ROI recovery baseline',date:'Sep 18',done:false},{id:'q3',account:'atlas',title:'Draft the outcome-based expansion proposal',date:'Sep 21',done:true}]}
+let notes=store.get('vcc-notes-v1',{});
+const saveQ=()=>store.set('vcc-queue-v1',queue), saveN=()=>store.set('vcc-notes-v1',notes);
+
+/* ================= PORTFOLIO ================= */
+function scope(){return C.filter(c=>S.seg==='All segments'||c.segment===S.seg)}
+function calc(list,period){const n=period==='90 days'?1:period==='30 days'?.36:.69;const sum=k=>list.reduce((a,c)=>a+c[k],0), avg=k=>list.length?Math.round(sum(k)/list.length):0;
+  const arr=sum('arr'),exp=sum('expansion')*n,loss=sum('loss')*n,base=arr-exp+loss;
+  return {arr,exp,loss,base,nrr:base?100*arr/base:0,grr:base?100*(base-loss)/base:0,health:avg('health'),adoption:avg('adoption'),nps:avg('nps'),ttv:avg('ttv'),
+    risk:list.filter(c=>c.health<60&&c.renewal<=90).reduce((a,c)=>a+c.arr,0),riskN:list.filter(c=>c.health<60&&c.renewal<=90).length,healthy:list.filter(c=>c.health>=75).length,n:list.length};}
+function acctRow(c,extra){return `<tr class="click" data-acct="${c.id}"><td><div class="acct"><span class="mono" style="background:${c.color}">${c.name[0].toUpperCase()}</span><div><b style="font-weight:500">${esc(c.name)}</b><div class="muted" style="font-size:12px">${esc(c.segment)} · ${esc(c.owner)}</div></div></div></td><td class="num">${c.health}<span class="meter"><b style="width:${c.health}%;background:${bandCol(c.health)}"></b></span></td><td class="num">${M(c.arr)}</td><td class="num">${c.adoption}%</td><td class="num ${c.renewal<=30?'down':''}">${c.renewal} days</td>${extra}</tr>`}
+function renderOverview(){
+  const list=scope(), k=calc(list,S.period);
+  $('#kpis').innerHTML=[
+    ['Net revenue retention',`${k.nrr.toFixed(1)}<small>%</small>`,`<span class="${k.nrr>=110?'up':'down'}">${k.nrr>=100?'▲':'▼'} ${(k.nrr-100).toFixed(1)}% net</span><span class="muted">Target 110%</span>`],
+    ['Managed recurring revenue',M(k.arr),`<span class="up">▲ ${M(k.exp-k.loss)} net</span><span class="muted">${S.period}</span>`],
+    ['Portfolio health',`${k.health}<small>/100</small>`,`<span>${k.healthy} healthy accounts</span><span class="muted">Target 80+</span>`],
+    ['Renewal ARR at risk',M(k.risk),`<span class="${k.riskN?'down':'up'}">${k.riskN} account${k.riskN===1?'':'s'} need a plan</span><span class="muted">Next 90 days</span>`]
+  ].map(([l,v,f])=>`<a class="card kpi" href="#method" style="text-decoration:none;color:inherit"><div class="label">${l}<span class="muted">ⓘ</span></div><div class="value num">${v}</div><div class="foot">${f}</div></a>`).join('');
+  const top=list.filter(c=>c.health<60&&c.renewal<=90).sort((a,b)=>a.renewal-b.renewal)[0];
+  $('#focusBanner').innerHTML=top?`<div class="banner"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9z"/></svg></div><div class="grow"><b>Your focus today.</b> ${M(k.risk)} is approaching renewal with low health. Start with ${esc(top.name)}. ${esc(top.signal)}</div><button class="btn" data-acct="${top.id}">Review recommendation</button></div>`:'';
+  $('#nrrPill').innerHTML=`<span class="pill ok"><i></i>NRR ${k.nrr.toFixed(1)}%</span>`;
+  // chart
+  const days=S.period==='90 days'?90:S.period==='60 days'?60:30, end=new Date(Date.UTC(2026,8,14));
+  const pts=[...Array(7)].map((_,i)=>{const t=i/6;const d=new Date(end.getTime()-(days*(1-t))*864e5);return {v:k.base+(k.arr-k.base)*(t*t*.6+t*.4),l:d.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'})}});
+  const lo=Math.floor(Math.min(...pts.map(p=>p.v))/5e5)*5e5, hi=Math.ceil(k.arr*1.02/5e5)*5e5||1;
+  const W=640,H=240,L=56,R=30,T=14,B=28, x=i=>L+i*(W-L-R)/6, y=v=>T+(hi-v)/(hi-lo)*(H-T-B);
+  const step=(hi-lo)<=1e6?2.5e5:5e5;let g='';for(let t=lo;t<=hi+1;t+=step){g+=`<line x1="${L}" x2="${W-R}" y1="${y(t)}" y2="${y(t)}" stroke="var(--line)"/><text x="${L-8}" y="${y(t)+4}" text-anchor="end" font-size="11" fill="var(--ink3)" font-family="Google Sans,sans-serif">${M(t)}</text>`}
+  pts.forEach((p,i)=>{g+=`<text x="${x(i)}" y="${H-8}" text-anchor="middle" font-size="11" fill="var(--ink3)" font-family="Google Sans,sans-serif">${p.l}</text>`});
+  const line=pts.map((p,i)=>`${x(i)},${y(p.v)}`).join(' ');
+  g+=`<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--blue-bar)" stop-opacity=".22"/><stop offset="1" stop-color="var(--blue-bar)" stop-opacity="0"/></linearGradient></defs><polygon points="${x(0)},${y(lo)} ${line} ${x(6)},${y(lo)}" fill="url(#ag)"/><polyline points="${line}" fill="none" stroke="var(--blue-bar)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="${x(6)}" cy="${y(k.arr)}" r="5" fill="var(--blue-bar)" stroke="var(--surface)" stroke-width="2"/><text x="${x(6)-10}" y="${y(k.arr)-12}" text-anchor="end" font-size="13" font-weight="500" fill="var(--ink)" font-family="Google Sans,sans-serif">${M(k.arr)}</text>`;
+  $('#arrChart').innerHTML=g;
+  $('#retStats').innerHTML=`<div><span class="muted">Gross retention</span><div class="num" style="font-size:18px">${k.grr.toFixed(1)}%</div></div><div><span class="muted">Expansion ARR</span><div class="num up" style="font-size:18px">+${M(k.exp)}</div></div><div><span class="muted">Revenue lost</span><div class="num" style="font-size:18px">${M(k.loss)}</div></div>`;
+  // donut
+  const groups=[['Healthy',list.filter(c=>c.health>=75).length,'var(--green-bar)','ok'],['Needs attention',list.filter(c=>c.health>=60&&c.health<75).length,'var(--amber-bar)','warn'],['At risk',list.filter(c=>c.health<60).length,'var(--red-bar)','bad']];
+  let a=-Math.PI/2,d='';const tot=list.length||1;
+  groups.forEach(([n,v,col])=>{if(!v)return;const sw=v/tot*Math.PI*2,gp=v===tot?0:.05,a0=a+gp/2,a1=a+sw-gp/2,r=64;const p0=[80+r*Math.cos(a0),80+r*Math.sin(a0)],p1=[80+r*Math.cos(a1),80+r*Math.sin(a1)];
+    d+=v===tot?`<circle cx="80" cy="80" r="${r}" fill="none" stroke="${col}" stroke-width="16"/>`:`<path d="M${p0[0]} ${p0[1]} A${r} ${r} 0 ${sw>Math.PI?1:0} 1 ${p1[0]} ${p1[1]}" fill="none" stroke="${col}" stroke-width="16" stroke-linecap="round"/>`;a+=sw});
+  d+=`<text x="80" y="86" text-anchor="middle" font-size="32" font-weight="500" fill="var(--ink)" font-family="Google Sans,sans-serif">${list.length}</text><text x="80" y="106" text-anchor="middle" font-size="11" fill="var(--ink3)" font-family="Google Sans,sans-serif">relationships</text>`;
+  $('#donut').innerHTML=d;
+  $('#healthLegend').innerHTML=groups.map(([n,v,,cls])=>`<button class="chip" data-health="${n}" style="justify-content:space-between;width:100%;height:38px"><span class="pill ${cls}"><i></i>${n}</span><span class="num">${v} · ${Math.round(v/tot*100)}%</span></button>`).join('');
+  // moves
+  const risks=list.filter(c=>c.type==='risk').sort((a,b)=>a.renewal-b.renewal), opp=list.filter(c=>c.type==='opportunity').sort((a,b)=>b.expansion-a.expansion);
+  const moves=[...risks.slice(0,2),...opp.slice(0,1)].slice(0,3);
+  $('#moves').innerHTML=moves.map(c=>`<div class="card" style="display:flex;flex-direction:column;gap:10px"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center">${c.type==='risk'?'<span class="pill bad"><i></i>Protect</span>':'<span class="pill ok"><i></i>Grow</span>'}<span class="muted num" style="font-size:13px">${c.type==='risk'?c.renewal+'d to renewal':M(c.expansion)+' expansion'}</span></div><h3 style="font-size:18px">${esc(c.name)}</h3><p class="muted" style="font-size:14px;flex:1">${esc(c.signal)}</p><div style="display:flex;justify-content:space-between;align-items:center;font-size:13px"><span class="muted">${esc(c.owner)}</span><button class="btn text" data-acct="${c.id}">Review plan →</button></div></div>`).join('');
+  $('#aiHours').textContent=Math.round(list.length*(S.period==='30 days'?2.4:S.period==='60 days'?4.8:7.2));
+  $('#topRows').innerHTML=[...list].sort((a,b)=>b.arr-a.arr).slice(0,5).map(c=>acctRow(c,`<td class="muted" style="font-size:13px">${esc(c.action)}</td>`)).join('');
+  $('#secondary').innerHTML=[['Product adoption',k.adoption+'%','Weekly active licensed users','Target ≥ 80%'],['Time to first value',k.ttv+' days','Kickoff to first customer outcome','Target ≤ 21 days'],['Relationship NPS','+'+k.nps,'Average of latest account scores','Target ≥ 40']].map(([a,b,c,t])=>`<a class="card kpi" href="#method" style="text-decoration:none;color:inherit"><div class="label">${a}<span class="muted">${t}</span></div><div class="value num">${b}</div><div class="foot muted">${c}</div></a>`).join('');
+}
+
+/* ================= CUSTOMERS / AGENTS / PLAYBOOKS ================= */
+function renderCustomers(){
+  const q=S.cq.toLowerCase();
+  let list=C.filter(c=>(S.cseg==='All segments'||c.segment===S.cseg)&&(S.chealth==='All health'||band(c.health)===S.chealth)&&(!q||[c.name,c.owner,c.industry,c.contact].join(' ').toLowerCase().includes(q)));
+  list.sort((a,b)=>S.sort==='name'?a.name.localeCompare(b.name)*S.sdir:(a[S.sort]-b[S.sort])*S.sdir);
+  $('#custRows').innerHTML=list.map(c=>acctRow(c,`<td class="num">${c.nps>0?'+':''}${c.nps}</td><td style="font-size:13px">${esc(c.owner)}</td>`)).join('')||`<tr><td colspan="7"><div class="empty">No customers match. Clear a filter to see more.</div></td></tr>`;
+  $('#custCount').textContent=`${list.length} of ${C.length} customers`;
+  $$('#view-customers th button').forEach(b=>b.textContent=b.textContent.replace(/ [↑↓]$/,'')+(b.dataset.sort===S.sort?(S.sdir<0?' ↓':' ↑'):''));
+}
+function renderAgents(){
+  $('#agentGrid').innerHTML=C.map(c=>`<div class="card agent-card"><div class="top"><span class="acct"><span class="mono" style="background:${c.color}">${c.name[0].toUpperCase()}</span></span><div class="grow"><b>${esc(c.name)}</b><span class="muted" style="font-size:12px">${esc(c.industry)}</span></div><span class="pill ${bandCls(c.health)}"><i></i>${band(c.health)}</span></div>
+    <div class="mini-stats"><div><span class="muted">Health</span><b class="num">${c.health}</b></div><div><span class="muted">ARR</span><b class="num">${M(c.arr)}</b></div><div><span class="muted">Renewal</span><b class="num">${c.renewal}d</b></div></div>
+    <p style="font-size:14px;color:var(--ink2);flex:1">${esc(c.signal)}</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px" class="muted"><span>${3+(notes[c.id]||[]).length} context items</span><button class="btn tonal" data-acct="${c.id}">Open customer agent</button></div></div>`).join('');
+}
+function renderPlaybooks(){
+  $('#plays').innerHTML=PLAYS.map((p,i)=>`<div class="card play"><span class="ic" style="background:${p.bg};color:${p.col}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg></span><span class="eyebrow">3-step success play</span><h3 style="font-size:20px">${p.name}</h3><p class="muted" style="font-size:14px">${p.desc}</p><ol>${p.steps.map(s=>`<li>${s}</li>`).join('')}</ol><button class="btn tonal" data-play="${i}" style="align-self:flex-start">Use playbook</button></div>`).join('');
+  const open=queue.filter(q=>!q.done).length; $('#qCount').textContent=open+' open';
+  $('#queue').innerHTML=queue.length?queue.map(q=>{const c=byId(q.account);return `<div class="queue-row ${q.done?'done':''}"><button class="check ${q.done?'on':''}" data-qtoggle="${q.id}" aria-label="${q.done?'Reopen':'Complete'} ${esc(q.title)}">${q.done?'✓':''}</button><div><b style="font-weight:500">${esc(q.title)}</b><div class="muted" style="font-size:12px">${esc(c.name)} · ${esc(c.owner)} · ${esc(q.date)}</div></div><button class="btn text" data-acct="${c.id}">View account</button><button class="iconbtn" data-qdel="${q.id}" aria-label="Remove ${esc(q.title)}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>`}).join(''):`<div class="empty">A little space for your next move. Choose a playbook or add an action from a customer's agent.</div>`;
+}
+function addQ(account,title){queue.unshift({id:'q'+Date.now()+Math.random().toString(36).slice(2,5),account,title,date:'Sep '+(15+queue.length%12),done:false});saveQ();renderPlaybooks()}
+
+/* ================= ACCOUNT DRAWER ================= */
+function scenarios(c){return [
+ {cat:'Leadership',title:'A new executive joins the buying group',implication:'Revalidate the stakeholder map and prepare a concise value narrative for a new sponsor.',question:'Has your executive sponsorship or decision process changed?'},
+ {cat:'Strategy',title:'An expansion or transformation initiative',implication:'Check whether the agreed success plan and covered environment need to evolve.',question:'Are new teams, assets, or business units changing your priorities?'},
+ {cat:'Industry',title:`Scrutiny of resilience reporting in ${c.industry.toLowerCase()}`,implication:"Align the next value review with the customer's own reporting requirements.",question:'What evidence does your leadership need from your security program?'}]}
+function openAcct(id,tab){const c=byId(id);if(!c)return;S.acct=id;S.tab=tab||'brief';
+  $('#dMono').textContent=c.name[0].toUpperCase();$('#dMono').style.background=c.color;$('#dName').textContent=c.name;$('#dSub').textContent=`${c.industry} · ${c.segment} · ${c.owner}`;
+  $('#drawer').classList.add('open');$('#drawer').setAttribute('aria-hidden','false');$('#scrim').classList.add('on');renderDrawer()}
+function closeDrawer(){$('#drawer').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true');if(!$('#ai').classList.contains('open'))$('#scrim').classList.remove('on')}
+function renderDrawer(){const c=byId(S.acct);if(!c)return;
+  $$('#dTabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===S.tab));
+  let h='';
+  if(S.tab==='brief'){
+    h=`<div class="facts"><div><span>Health</span><b class="num" style="color:${bandCol(c.health)}">${c.health}</b></div><div><span>ARR</span><b class="num">${M(c.arr)}</b></div><div><span>Renewal</span><b class="num">${c.renewal} days</b></div><div><span>Adoption</span><b class="num">${c.adoption}%</b></div><div><span>NPS</span><b class="num">${c.nps>0?'+':''}${c.nps}</b></div><div><span>Time to value</span><b class="num">${c.ttv} days</b></div></div>
+    <div class="card flat"><p class="eyebrow">Customer goal</p><p style="font-size:16px;margin-top:6px">${esc(c.goal)}</p></div>
+    <div class="card flat"><p class="eyebrow" style="color:${c.type==='risk'?'var(--red)':c.type==='watch'?'var(--amber)':'var(--green)'}">Latest signal</p><p style="font-size:16px;margin-top:6px">${esc(c.signal)}</p></div>
+    <div class="banner"><div class="grow"><b>Recommended next move</b><br>${esc(c.action)}</div><button class="btn" id="addAction">Add to action queue</button></div>
+    <div class="card flat"><p class="eyebrow">People</p><p style="margin-top:6px;font-size:14px">Customer: ${esc(c.contact)}<br>Account owner: ${esc(c.owner)}</p></div>
+    <div><p class="eyebrow" style="margin-bottom:8px">Discussion scenarios · illustrative, not news</p>${scenarios(c).map(s=>`<div class="note-row" style="margin-bottom:8px"><span class="pill neutral">${s.cat}</span><div class="grow"><b style="font-weight:500">${esc(s.title)}</b><div class="muted" style="font-size:13px">${esc(s.implication)}</div><div style="font-size:13px;margin-top:4px">Ask: “${esc(s.question)}”</div></div></div>`).join('')}</div>`;
+  } else if(S.tab==='prep'){
+    const m=MEET[S.meet]; const dur=m.duration; let used=0;
+    const ag=m.agenda.map((t,i)=>{const mins=i===m.agenda.length-1?dur-used:Math.floor(dur*m.weights[i]/100);used+=mins;return [t,mins]});
+    const extra=c.type==='risk'?`What would make ${c.name} confident at renewal, given that ${c.signal.charAt(0).toLowerCase()+c.signal.slice(1)}`:`How do we build on this: ${c.signal.charAt(0).toLowerCase()+c.signal.slice(1)}`;
+    h=`<label class="field">Meeting type<select class="sel" id="meetSel">${Object.entries(MEET).map(([k,v])=>`<option value="${k}" ${k===S.meet?'selected':''}>${v.name}</option>`).join('')}</select></label>
+    <div class="card flat"><p class="eyebrow">Objective · ${dur} minutes</p><p style="font-size:16px;margin-top:6px">${esc(m.objective)}</p><p class="muted" style="font-size:13px;margin-top:6px">Audience: ${esc(m.audience)} · ${esc(c.contact)}</p></div>
+    <div><p class="eyebrow" style="margin-bottom:8px">Agenda</p><div class="agenda">${ag.map(([t,n])=>`<div class="ag"><span class="num">${n} min</span><span>${esc(t)}</span></div>`).join('')}</div></div>
+    <div class="card flat"><p class="eyebrow">Questions to ask</p><ol class="clean" style="margin-top:8px">${[...m.questions,extra].map(q=>`<li>${esc(q)}</li>`).join('')}</ol></div>
+    <div class="card flat"><p class="eyebrow">Evidence to bring</p><ul class="clean" style="margin:8px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--ink2)"><li>Goal and baseline: ${esc(c.goal)}</li><li>Adoption ${c.adoption}% and health ${c.health}, with the trend behind them</li><li>One customer-approved outcome with its evidence</li></ul></div>
+    <button class="btn" id="draftOpen" style="align-self:flex-start">Draft my opening with the agent</button><div class="msg bot" id="draftOut" hidden></div>`;
+  } else if(S.tab==='notes'){
+    const base=[['Goal',c.goal],['Signal',c.signal],['Contact',c.contact]]; const own=notes[c.id]||[];
+    h=`<form id="noteForm" class="field">Add a context note<textarea id="noteText" rows="3" placeholder="What did you learn? Decisions, risks, people…"></textarea><button class="btn" style="align-self:flex-end;margin-top:6px">Save note</button></form>
+    <div style="display:flex;flex-direction:column;gap:8px">${own.map((n,i)=>`<div class="note-row"><span class="pill info">Note</span><div class="grow">${esc(n.t)}<div class="muted" style="font-size:12px">${esc(n.d)}</div></div><button class="iconbtn" data-ndel="${i}" aria-label="Delete note"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>`).join('')}
+    ${base.map(([k,v])=>`<div class="note-row"><span class="pill neutral">${k}</span><div class="grow">${esc(v)}<div class="muted" style="font-size:12px">Sample snapshot · Sep 14, 2026</div></div></div>`).join('')}</div>
+    <p class="muted" style="font-size:12px">Notes stay in this browser.</p>`;
+  } else {
+    h=`<div class="suggest" style="padding:0">${[`Prepare me for my next call with ${c.name}.`,`Draft a short email to ${c.contact.split(' · ')[0]} proposing a value review.`,`What evidence would prove value at ${c.name}?`].map(q=>`<button data-aq="${esc(q)}">${esc(q)}</button>`).join('')}</div>
+    <form id="acctAsk" class="field">Ask the ${esc(c.name)} agent<textarea id="acctQ" rows="2" placeholder="Ask about this account…"></textarea><button class="btn" style="align-self:flex-end;margin-top:6px">Ask</button></form><div class="msg bot" id="acctOut" hidden></div>`;
+  }
+  $('#dBody').innerHTML=h;$('#dBody').scrollTop=0;
+  const aa=$('#addAction'); if(aa) aa.onclick=()=>{addQ(c.id,c.action);toast('Added to your action queue')};
+  const ms=$('#meetSel'); if(ms) ms.onchange=e=>{S.meet=e.target.value;renderDrawer()};
+  const nf=$('#noteForm'); if(nf) nf.onsubmit=e=>{e.preventDefault();const t=$('#noteText').value.trim();if(!t)return;(notes[c.id]=notes[c.id]||[]).unshift({t,d:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})});saveN();renderDrawer();renderAgents();toast('Note saved')};
+  $$('[data-ndel]').forEach(b=>b.onclick=()=>{notes[c.id].splice(+b.dataset.ndel,1);saveN();renderDrawer();renderAgents()});
+  const dop=$('#draftOpen'); if(dop) dop.onclick=()=>runInline($('#draftOut'),`Write a 60-second opening for a ${MEET[S.meet].name} with ${c.name}. Reference their goal and latest signal, name one outcome to agree on today, and end with a question.`,c);
+  const af=$('#acctAsk'); if(af) af.onsubmit=e=>{e.preventDefault();const q=$('#acctQ').value.trim();if(q)runInline($('#acctOut'),q,c)};
+  $$('[data-aq]').forEach(b=>b.onclick=()=>runInline($('#acctOut'),b.dataset.aq,c));
+}
+async function runInline(out,q,c){out.hidden=false;out.textContent='Thinking…';
+  try{const t=await askAI([{role:'user',content:q}],c,txt=>{out.textContent=txt});out.textContent=t.text+(t.local?'\n\n— Composed from the account data. Live AI is not connected in this view.':'')}catch(e){out.textContent='The agent could not answer. Try again.'}}
+
+/* ================= VALUE SCORECARD ================= */
+const SC={
+soc:{eyebrow:'Stage 3 · SOC value review · Halden Financial',customer:'Halden Financial',line:['Path: <b style="font-weight:500">phishing → identity → privilege escalation → lateral movement → payments ledger</b>','30 days · 1,200 eligible cases','Risk owner: CISO, Dana Whitfield'],
+ terms:['Risk reduced on named paths','Critical-path speed deltas','Capacity reclaimed × reinvestment','Cost of vanity &amp; unowned metrics'],
+ L1:{eb:'Layer 1 · Outcome · for the board',title:'Risk reduced: attacks stopped before the crown jewels',metric:'Scenario-suite containment',desc:'Share of 12 simulated attacks on the named path contained before they reach the payments ledger, inside the 15-minute acceptance window.',base:8,cur:11,gate:11,gateTxt:'≥ 11/12 and no unowned critical gap',owner:'CISO',ev:'Scenario suite runs, containment timestamps',noun:'attack scenario',baseFails:[2,5,8,10]},
+ gap:{id:'S-09',idx:8,text:'A privileged session survives a password reset, so lateral movement continues.',owner:'IAM lead, J. Rivera',closed:'Session tokens now revoke on reset.'},
+ L2:{eb:'Layer 2 · Speed · for the CISO',title:'Critical-path speed, not a global average',metric:'Path MTTContain',desc:'Median minutes from first malicious signal to containment on this path only. The global MTTD of 42 minutes across all alerts is not reported.',base:26,cur:13,gate:15,gateTxt:'≤ 15 min, contain before crown-jewel impact',owner:'SOC lead',ev:'Google Security Operations detection & case timelines',
+   stages:[['Stage 1','Phishing → identity','Initial access','var(--g1)'],['Stage 2','Privilege escalation','Admin token misuse','var(--g3)'],['Stage 3','Lateral movement','East-west to finance tier','#E37400'],['Target','Payments ledger','Crown jewel','var(--red-bar)']],parts:['Detect','Triage & scope','Contain'],tb:[9,7,10],td:[4,4,5]},
+ L3:{eb:'Layer 3 · Efficiency · for the SOC lead',title:'Capacity reclaimed, and what it is really worth',metric:'% actionable alerts on the path',desc:'Alerts that led to an analyst action, over all alerts raised on this path. Noise hours fall as this rises.',base:31,cur:47,gate:45,owner:'SOC lead',ev:'Case dispositions, sampled effort logs'},
+ inputs:{vol:1200,base:20,pilot:12,rev:20,rate:60},series:{l1:[8,9,9,10,11],l2:[26,22,18,15,13],l3:[31,35,39,44,47]},
+ personas:['Board / CFO','CISO','SOC lead'],reinvest:'hunting and detection tuning',
+ anti:[['Raw alert volume','% actionable + noise hours'],['Tickets closed per analyst','Outcomes on the named path'],['Global MTTD across noise','Path MTTD / MTTContain'],['“AI alerts handled”','Net capacity after review']],retired:'raw alert volume',
+ cad:[['Weekly','SOC lead','Noise hours, % actionable, path exceptions, tuning backlog.'],['Monthly','CISO','Outcome and path-speed deltas, capacity reinvested, open material risks.'],['Quarterly','Board / CFO','Risk-reduced narrative, capacity value labelled as assumption, verified savings only if budget moved.']],
+ src:[['Detection & investigation timelines','Google Security Operations case and alert timestamps on the path','var(--g1)'],['Response & playbook runs','Containment actions, SOAR outcomes, time to isolate','var(--g4)'],['Scenario suite results','12 attack simulations on the named path, run weekly','var(--g3)'],['Effort samples & finance ledger','200 + 200 sampled cases; budget lines for verified cash','var(--g2)']]},
+general:{eyebrow:'General CS example · VP Customer Success',customer:'Orbit Commerce',line:['Journey: <b style="font-weight:500">priority journey → critical workflow → outcome gate</b>','30 days · 900 eligible cases','Owner: VP Customer Success'],
+ terms:['Outcomes on the priority journey','Journey speed deltas','Capacity reclaimed × reinvestment','Cost of vanity &amp; unowned metrics'],
+ L1:{eb:'Layer 1 · Outcome · for the executive sponsor',title:'Critical workflows that pass the outcome gate',metric:'Outcome-gate acceptance',desc:'Share of 12 critical customer workflows completed inside the 15-minute acceptance bar, with a verified outcome.',base:6,cur:11,gate:11,gateTxt:'≥ 11/12 and no unowned critical gap',owner:'VP Customer Success',ev:'Workflow test suite, completion timestamps',noun:'critical workflow',baseFails:[1,3,5,8,9,11]},
+ gap:{id:'CS-12',idx:11,text:'The exception path cleared late. Averages improved; this journey still needs a named owner.',owner:'Support operations lead, K. Osei',closed:'Exception handoff is now owned and inside the bar.'},
+ L2:{eb:'Layer 2 · Speed · for the VP CS',title:'Journey speed, not a global average',metric:'Critical workflow time',desc:'Median minutes from workflow start to verified outcome on the priority journey only. Average handle time across all cases is not reported.',base:15.5,cur:9.5,gate:15,gateTxt:'≤ 15 min from workflow start',owner:'CS operations lead',ev:'Workflow and case timestamps',
+   stages:[['Step 1','Intake','Request captured','var(--g1)'],['Step 2','Critical workflow','Core configuration','var(--g3)'],['Step 3','Handoff','Support to success','#E37400'],['Gate','Verified outcome','Customer-confirmed','var(--red-bar)']],parts:['Intake','Workflow','Handoff'],tb:[4,7,4.5],td:[2.5,4.5,2.5]},
+ L3:{eb:'Layer 3 · Efficiency · for the CS lead',title:'Capacity reclaimed, and what it is really worth',metric:'% cases resolved at first touch',desc:'Cases closed without a second handoff, over all cases on the priority journey.',base:38,cur:52,gate:50,owner:'CS operations lead',ev:'Case dispositions, sampled effort logs'},
+ inputs:{vol:900,base:22,pilot:14,rev:16,rate:55},series:{l1:[6,7,9,10,11],l2:[15.5,14,12,10.5,9.5],l3:[38,41,45,49,52]},
+ personas:['CFO / Board','VP CS','CS lead'],reinvest:'proactive success plans',
+ anti:[['Tickets closed','Outcomes on the priority journey'],['Total logins','Weekly active users in the critical workflow'],['Average handle time, all cases','Journey time on the named workflow'],['“AI suggestions generated”','Net hours after review']],retired:'tickets closed',
+ cad:[['Weekly','CS lead','First-touch rate, open exceptions, enablement backlog.'],['Monthly','VP CS','Outcome and journey-speed deltas, capacity reinvested, renewals at risk.'],['Quarterly','CFO / Board','Retention narrative, capacity value labelled as assumption, verified savings only if budget moved.']],
+ src:[['Workflow timestamps','Start, handoff and outcome events on the priority journey','var(--g1)'],['Case dispositions','First-touch resolution and escalations','var(--g4)'],['Workflow test suite','12 critical workflows, run weekly','var(--g3)'],['Effort samples & finance ledger','Sampled cases; budget lines for verified cash','var(--g2)']]}};
+const P=()=>SC[S.preset];
+function inputsReset(){S.inputs={...P().inputs};S.gapClosed=false;S.budget=false}
+inputsReset();
+function vcalc(){const p=P(),d30=S.phase==='day30',I=S.inputs;
+  const l1=d30?(S.gapClosed?12:p.L1.cur):p.L1.base, l2=d30?p.L2.cur:p.L2.base, l3=d30?p.L3.cur:p.L3.base;
+  const gross=d30?Math.max(0,I.vol*(I.base-I.pilot)/60):0, net=Math.max(0,gross-(d30?I.rev:0)), value=net*I.rate;
+  const verified=d30&&S.budget?Math.round(value*.35/100)*100:0, reinvH=Math.round(net*S.reinv/100), gapOpen=!(d30&&S.gapClosed);
+  return {d30,l1,l2,l3,gross,net,value,verified,reinvH,gapOpen};}
+function gates(c){const p=P();return [{k:'Outcome',t:`${p.L1.metric} ≥ ${p.L1.gate}/12`,ok:c.l1>=p.L1.gate,v:c.l1+'/12'},{k:'Speed',t:`${p.L2.metric} ≤ ${p.L2.gate} min`,ok:c.l2<=p.L2.gate,v:c.l2+' min'},{k:'Efficiency',t:`${p.L3.metric.replace('% ','')} ≥ ${p.L3.gate}%`,ok:c.l3>=p.L3.gate,v:c.l3+'%'},{k:'Ownership',t:'No open critical gap',ok:!c.gapOpen,v:c.gapOpen?p.gap.id+' open':'Closed'}]}
+function decide(c){const p=P(),g=gates(c),miss=g.slice(0,3).filter(x=>!x.ok).length;
+  if(miss>=2)return{d:'stop',title:'Stop: the path did not move',why:`${miss} of 3 metric gates missed. Keep the baseline and pick a path with a clearer lever.`};
+  if(miss===1)return{d:'redesign',title:'Redesign before continuing',why:'One metric gate missed. Change the lever or the definition, then rerun the 30 days.'};
+  if(c.gapOpen)return{d:'remediate',title:'Remediate, then expand',why:`All three metric gates are met. ${p.gap.id} blocks expansion until ${p.gap.owner} closes it and the suite is retested on day 37.`};
+  return{d:'expand',title:'Expand to the next critical path',why:'All gates met and no open critical gap. Expand the scorecard to the second path with the same definitions.'};}
+function readout(c,d,alt){const p=P(),I=S.inputs,soc=S.preset==='soc';
+  if(!c.d30)return `Baseline: ${p.L1.base} of 12 ${p.L1.noun}s pass, ${p.L2.metric.toLowerCase()} is ${p.L2.base} minutes against a ${p.L2.gate}-minute gate, and ${p.L3.metric.replace('% ','').toLowerCase()} is ${p.L3.base}%. Definitions, owners and gates are now frozen for the 30-day pilot.`;
+  const gap=c.gapOpen?` One gap remains: ${p.gap.text.charAt(0).toLowerCase()+p.gap.text.slice(1)} ${p.gap.owner} owns it, with a retest on day 37.`:` The last gap was closed and retested. ${p.gap.closed}`;
+  const cash=c.verified?` Finance verified ${money(c.verified)} in released budget.`:' Verified cash savings are $0 because no budget moved.';
+  if(alt===0)return soc?`We cut exposure on our most material attack path: ${c.l1} of 12 simulated attacks were stopped before reaching the payments ledger, up from ${p.L1.base}. Analysts reclaimed ${fmt(c.net)} hours, valued at ${money(c.value)} as an assumption.${cash}${gap} Recommendation: ${d.title.toLowerCase()}.`
+    :`The priority journey now passes its outcome gate in ${c.l1} of 12 critical workflows, up from ${p.L1.base}. The team reclaimed ${fmt(c.net)} hours, valued at ${money(c.value)} as an assumption.${cash}${gap} Recommendation: ${d.title.toLowerCase()}.`;
+  if(alt===1)return `${p.L1.metric} improved from ${p.L1.base}/12 to ${c.l1}/12 and ${p.L2.metric.toLowerCase()} fell from ${p.L2.base} to ${c.l2} minutes, inside the ${p.L2.gate}-minute gate. ${fmt(c.net)} net hours were created after ${I.rev} hours of review overhead, and ${c.reinvH} of them went into ${p.reinvest}.${gap} Decision: ${d.title}.`;
+  return `${p.L3.metric.replace('% ','')} rose from ${p.L3.base}% to ${c.l3}%. Effort per comparable case dropped from ${I.base} to ${I.pilot} minutes across ${fmt(I.vol)} cases. ${p.retired.charAt(0).toUpperCase()+p.retired.slice(1)} is retired from the weekly readout. Next week: keep the backlog moving and track ${p.gap.id} until the retest.`;}
+function spark(v,gate,col,d30){const W=260,H=44,pd=4,mn=Math.min(...v,gate)*.9,mx=Math.max(...v,gate)*1.05,x=i=>pd+i*(W-2*pd)/(v.length-1),y=val=>H-pd-(val-mn)/(mx-mn)*(H-2*pd);const last=d30?v.length-1:0;
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="trend ${v.join(', ')}"><line x1="${pd}" x2="${W-pd}" y1="${y(gate)}" y2="${y(gate)}" stroke="var(--ink3)" stroke-dasharray="3 3"/><polyline points="${v.map((a,i)=>x(i).toFixed(1)+','+y(a).toFixed(1)).join(' ')}" fill="none" stroke="${col}" stroke-width="2.5" stroke-linejoin="round" ${d30?'':'opacity=".3"'}/><circle cx="${x(last)}" cy="${y(v[last])}" r="4" fill="${col}"/></svg>`}
+function pill(ok,a,b,w){return ok?`<span class="pill ok"><i></i>${a}</span>`:`<span class="pill ${w?'warn':'bad'}"><i></i>${b}</span>`}
+function layerShell(n,col,eb,ebCol,title,pillId,inner){return `<div class="stripe"><span class="n" style="color:${col}">${n}</span><span class="bar" style="background:${col}"></span></div><div class="body"><div class="layer-head"><div><p class="eyebrow" style="color:${ebCol}">${eb}</p><h2>${title}</h2></div><span id="${pillId}"></span></div>${inner}</div>`}
+function metricBlock(L,valId,unit,baseTxt){return `<div class="metric"><div class="m-name"><b>${L.metric}</b><p>${L.desc}</p></div><div><div class="m-vals"><div class="from">Baseline<div class="num">${baseTxt}</div></div><div class="arrow">→</div><div class="to"><span class="num" id="${valId}"></span><small>${unit}</small></div></div></div><dl class="m-meta"><dt>Gate</dt><dd>${L.gateTxt||('≥ '+L.gate+'%')}</dd><dt>Owner</dt><dd>${L.owner}</dd><dt>Evidence</dt><dd>${L.ev}</dd></dl></div>`}
+function renderStatic(){const p=P();
+  $('#scEyebrow').textContent=p.eyebrow;
+  $('#scLine').innerHTML=`<span class="pill info">Illustrative pilot</span>`+p.line.map((t,i)=>(i?'<span class="dot"></span>':'')+`<span>${t}</span>`).join('');
+  $('#formula').innerHTML=`<div class="lhs">${S.preset==='soc'?'SOC':'CS'} Value ≈</div>`+p.terms.map((t,i)=>`<a class="term" href="#${['layer1','layer2','layer3','anti'][i]}"><span class="op">${['&#160;','+','+','−'][i]}</span><b>${t}</b><span class="v num" id="f${i}"></span></a>`).join('');
+  $('#layer1').innerHTML=layerShell(1,'var(--g1)',p.L1.eb,'var(--blue)',p.L1.title,'l1Pill',metricBlock(p.L1,'l1Val','/12',p.L1.base+'/12')+`<div style="display:flex;flex-direction:column;gap:8px"><div style="display:flex;justify-content:space-between;font-size:13px" class="muted"><span id="runsLbl"></span><span id="runsLegend"></span></div><div class="runs" id="runs"></div></div><div id="gapBox"></div>`);
+  $('#layer2').innerHTML=layerShell(2,'var(--g4)',p.L2.eb,'var(--green)',p.L2.title,'l2Pill',metricBlock(p.L2,'l2Val','min',p.L2.base+' min')+`<div class="path">${p.L2.stages.map((s,i)=>`<div class="stage ${i===3?'target':''}" style="--stage:${s[3]}"><span class="k">${s[0]}</span><b>${s[1]}</b><span class="muted" style="font-size:12px">${s[2]}</span></div>`).join('')}</div><div class="timing" id="timing" style="padding-top:22px"></div>`);
+  $('#layer3').innerHTML=layerShell(3,'var(--g3)',p.L3.eb,'var(--amber)',p.L3.title,'l3Pill',metricBlock(p.L3,'l3Val','%',p.L3.base+'%')+`<div class="funnel" id="funnel"></div>
+   <details open><summary style="cursor:pointer;font-size:13px;color:var(--blue);font-weight:500">Model inputs · change them live</summary><div class="inputs">
+   ${[['vol','Eligible cases / 30 days',100,3000,100,v=>fmt(v)],['base','Baseline effort / case',6,40,1,v=>v+' min'],['pilot','Pilot effort / case',3,40,1,v=>v+' min'],['rev','Review overhead',0,80,2,v=>v+' h'],['rate','Fully loaded rate (assumed)',30,150,5,v=>'$'+v+'/h']].map(([k,l,mn,mx,st])=>`<label><span class="row">${l}<span class="num" id="o-${k}"></span></span><input type="range" id="in-${k}" data-k="${k}" min="${mn}" max="${mx}" step="${st}" value="${S.inputs[k]}"></label>`).join('')}
+   <label><span class="row">Hours reinvested<span class="num" id="o-reinv"></span></span><input type="range" id="in-reinv" min="0" max="100" step="5" value="${S.reinv}"></label></div>
+   <div style="margin-top:14px"><label class="switch"><input type="checkbox" id="in-budget" ${S.budget?'checked':''}>Budget actually moved (overtime or contract cut)</label></div></details>`);
+  $('#anti').innerHTML=`<div class="card-head"><div><p class="eyebrow" style="color:var(--red)">Guardrail</p><h2>Vanity metrics retired in this pilot</h2><p>Each one killed has a named replacement on the scorecard.</p></div></div><div class="anti">${p.anti.map(([a,b])=>`<span class="k">${a}</span><span class="arr">→</span><span>${b}</span>`).join('')}</div><p class="muted" style="font-size:13px;margin-top:14px">Retired on day 12: <b style="font-weight:500;color:var(--ink)">${p.retired}</b> left the weekly readout.</p>`;
+  $('#altSeg').innerHTML=p.personas.map((n,i)=>`<button data-alt="${i}" aria-pressed="${i===S.alt}">${n}</button>`).join('');
+  $('#cadence').innerHTML=p.cad.map(([f,w,t],i)=>`<div class="cad"><span class="pill ${['info','ok','bad'][i]}" style="align-self:flex-start">${f}</span><b>${w}</b><span class="muted">${t}</span></div>`).join('');
+  $('#pipeline').innerHTML=`<div class="card-head"><div><p class="eyebrow">How the product measures it</p><h2>From telemetry to a board sentence</h2><p>${S.preset==='soc'?'Google Security Operations and pilot records are inputs. The scorecard is the output.':'Workflow data and pilot records are inputs. The scorecard is the output.'} Tools never become the KPI.</p></div></div>
+   <div class="pipeline"><div class="pcol"><h3>Evidence inputs</h3>${p.src.map(([b,t,c])=>`<div class="src"><span class="sw" style="background:${c}"></span><div><b>${b}</b><span class="muted">${t}</span></div></div>`).join('')}</div>
+   <div class="pcol"><h3>What Value Control Center does</h3>${[['Freezes definitions on day 0','Metric, source, owner and gate locked before data arrives'],['Computes deltas against baseline','Path-only speed, pass rate, net capacity after review'],['Separates observed, calculated, assumed, verified','Every figure is labelled; assumptions never read as cash'],['Flags unowned gaps','A failing scenario without an owner blocks expansion']].map(([b,t])=>`<div class="src"><span class="sw" style="background:var(--blue-bar)"></span><div><b>${b}</b><span class="muted">${t}</span></div></div>`).join('')}</div>
+   <div class="pcol"><h3>Outputs by cadence</h3>${[['Weekly ops card',p.cad[0][1]],['Monthly value review',p.cad[1][1]+', with the CSM'],['Quarterly board page','Three slides maximum'],['Day-30 decision','Expand, remediate, redesign or stop']].map(([b,t])=>`<div class="src"><span class="sw" style="background:var(--ink3)"></span><div><b>${b}</b><span class="muted">${t}</span></div></div>`).join('')}</div></div>`;
+  $$('#view-soc-value input[type=range][data-k]').forEach(r=>r.addEventListener('input',e=>{const k=r.dataset.k;S.inputs[k]=+e.target.value;if(S.inputs.pilot>S.inputs.base){S.inputs.pilot=S.inputs.base;$('#in-pilot').value=S.inputs.base}renderSOC()}));
+  $('#in-reinv').addEventListener('input',e=>{S.reinv=+e.target.value;renderSOC()});
+  $('#in-budget').addEventListener('change',e=>{S.budget=e.target.checked;renderSOC()});
+  $$('#altSeg button').forEach(b=>b.onclick=()=>{S.alt=+b.dataset.alt;$$('#altSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderSOC()});
+  $('#in-gap').checked=S.gapClosed;
+}
+function renderSOC(){const p=P(),c=vcalc(),I=S.inputs;
+  $('#l1Val').textContent=c.l1;$('#l2Val').textContent=c.l2;$('#l3Val').textContent=c.l3;
+  $('#l1Pill').innerHTML=c.d30?(c.l1>=p.L1.gate?(c.gapOpen?'<span class="pill warn"><i></i>Gate met · gap open</span>':'<span class="pill ok"><i></i>Gate met</span>'):'<span class="pill bad"><i></i>Gate missed</span>'):'<span class="pill neutral"><i></i>Baseline</span>';
+  $('#l2Pill').innerHTML=c.d30?pill(c.l2<=p.L2.gate,'Gate met','Gate missed'):(p.L2.base>p.L2.gate?`<span class="pill bad"><i></i>${+(p.L2.base-p.L2.gate).toFixed(1)} min over gate</span>`:'<span class="pill neutral"><i></i>Baseline</span>');
+  $('#l3Pill').innerHTML=c.d30?pill(c.l3>=p.L3.gate,'Gate met','Gate missed'):'<span class="pill neutral"><i></i>Baseline</span>';
+  const f=[c.d30?`+${c.l1-p.L1.base} of 12 passing`:'0',c.d30?`−${+(p.L2.base-c.l2).toFixed(1)} min on path`:'0 min',c.d30?`${c.reinvH} h reinvested`:'0 h',c.d30?'1 retired, '+(c.gapOpen?'1 gap':'0 gaps'):'4 vanity metrics'];
+  f.forEach((t,i)=>{const el=$('#f'+i);if(el)el.textContent=t});
+  const fails=c.d30?(S.gapClosed?[]:[p.gap.idx]):p.L1.baseFails;
+  $('#runs').innerHTML=Array.from({length:12},(_,i)=>{const fl=fails.includes(i),cls=c.d30?(fl?'fail':'pass'):(fl?'basefail':'base');const id=(S.preset==='soc'?'S-':'W-')+String(i+1).padStart(2,'0');return `<div class="run ${cls}" title="${id} · ${fl?(c.d30?p.gap.text:'Missed the acceptance window'):'Passed inside the window'}">${String(i+1).padStart(2,'0')}</div>`}).join('');
+  $('#runsLbl').textContent=(c.d30?'Day 30 run':'Baseline run')+` · each square is one ${p.L1.noun}`;
+  $('#runsLegend').textContent=`${12-fails.length} passed · ${fails.length} not`;
+  $('#gapBox').innerHTML=c.d30&&!S.gapClosed?`<div class="banner" style="background:var(--amber-soft);color:var(--ink)"><div class="ic" style="color:var(--amber)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg></div><div class="grow"><b>One material gap, owned. ${p.gap.id}:</b> ${p.gap.text} Owner: ${p.gap.owner}. Retest due day 37.</div><button class="btn text" id="closeGapBtn">Mark retested</button></div>`
+    :(c.d30?`<div class="banner" style="background:var(--green-soft);color:var(--ink)"><div class="ic" style="color:var(--green)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-10"/></svg></div><div class="grow"><b>Gap closed.</b> ${p.gap.id} retested on day 37. ${p.gap.closed} 12 of 12 pass.</div></div>`:'');
+  const cg=$('#closeGapBtn');if(cg)cg.onclick=()=>{S.gapClosed=true;$('#in-gap').checked=true;renderSOC();toast(p.gap.id+' marked as retested')};
+  const mx=Math.max(30,Math.ceil(p.L2.base/5)*5+5),cols=['var(--g1)','var(--amber-bar)','#E37400'];
+  let h=`<div class="trow"><span></span><div style="position:relative;height:0"><span class="gate-lbl" style="left:${p.L2.gate/mx*100}%">Gate ≤ ${p.L2.gate} min</span></div><span></span></div>`;
+  [['Baseline',p.L2.tb],['Day 30',p.L2.td]].forEach(([lbl,arr])=>{const dim=!c.d30&&lbl==='Day 30';let x=0;const segs=arr.map((m,i)=>{const s=`<div class="segm" style="left:${x/mx*100}%;width:${m/mx*100}%;background:${cols[i]}" title="${p.L2.parts[i]} ${m} min">${m>=3?m+'m':''}</div>`;x+=m;return s}).join('');const tot=+arr.reduce((a,b)=>a+b,0).toFixed(1);
+    h+=`<div class="trow" style="${dim?'opacity:.35':''}"><span class="muted">${lbl}</span><div class="track">${segs}<div class="gate" style="left:${p.L2.gate/mx*100}%"></div></div><span class="num ${tot<=p.L2.gate?'up':'down'}" style="text-align:right">${tot} min</span></div>`});
+  h+=`<div class="trow"><span></span><div style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px" class="muted">${p.L2.parts.map((n,i)=>`<span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${cols[i]};margin-right:6px;vertical-align:-1px"></i>${n}</span>`).join('')}</div><span></span></div>`;
+  $('#timing').innerHTML=h;
+  $('#funnel').innerHTML=`<div class="fbox" style="background:var(--green-soft);border-color:transparent"><span class="k" style="color:var(--green)">Created · observed</span><span class="num">${fmt(c.net)}<small style="font-size:18px">h</small></span><p>${fmt(c.gross)}h gross − ${c.d30?I.rev:0}h review, net over 30 days</p></div><div class="neq">≠</div>
+   <div class="fbox" style="background:var(--amber-soft);border-color:transparent"><span class="k" style="color:var(--amber)">Valued · assumed</span><span class="num">${money(c.value)}</span><p>@ $${I.rate}/h fully loaded. Not cash.</p></div><div class="neq">≠</div>
+   <div class="fbox" style="background:${c.verified?'var(--green-soft)':'var(--red-soft)'};border-color:transparent"><span class="k" style="color:${c.verified?'var(--green)':'var(--red)'}">Verified · cash</span><span class="num">${money(c.verified)}</span><p>${c.verified?'Overtime budget released by Finance':'No hire cut, no budget release'}</p></div>`;
+  $('#o-vol').textContent=fmt(I.vol);$('#o-base').textContent=I.base+' min';$('#o-pilot').textContent=I.pilot+' min';$('#o-rev').textContent=I.rev+' h';$('#o-rate').textContent='$'+I.rate+'/h';$('#o-reinv').textContent=S.reinv+'%';
+  const tr=[[p.L1.metric,'l1','/12',p.L1.gate,false,'var(--blue-bar)'],[p.L2.metric,'l2',' min',p.L2.gate,true,'var(--green-bar)'],[p.L3.metric,'l3','%',p.L3.gate,false,'var(--amber-bar)']];
+  $('#trends').innerHTML=tr.map(([n,k,u,g,lo,col])=>{const v=p.series[k].slice();if(k==='l1'&&S.gapClosed)v[4]=12;return `<div style="display:grid;grid-template-columns:140px minmax(0,1fr) 70px;gap:12px;align-items:center"><div><div style="font-size:13px">${n}</div><div class="muted" style="font-size:12px">gate ${lo?'≤':'≥'} ${g}${u}</div></div>${spark(v,g,col,c.d30)}<div class="num" style="text-align:right;font-size:18px">${c.d30?v[4]:v[0]}<span class="muted" style="font-size:12px">${u}</span></div></div>`}).join('');
+  const g=gates(c),d=c.d30?decide(c):{d:'',title:'Baseline: nothing to decide yet',why:'Switch to Day 30 to see the gates evaluated against the frozen definitions.'};
+  $('#decTitle').textContent=d.title;$('#decWhy').textContent=d.why;
+  $('#gates').innerHTML=g.map(x=>`<div class="gatebox" style="${c.d30?'':'opacity:.7'}"><span class="muted" style="font-size:12px;text-transform:uppercase;letter-spacing:.06em">${x.k}</span><b>${x.t}</b><span style="display:flex;justify-content:space-between;align-items:center"><span class="num">${x.v}</span>${c.d30?(x.ok?'<span class="pill ok"><i></i>Met</span>':`<span class="pill ${x.k==='Ownership'?'warn':'bad'}"><i></i>${x.k==='Ownership'?'Open':'Missed'}</span>`):'<span class="pill neutral">Not evaluated</span>'}</span></div>`).join('');
+  $$('#decRow span').forEach(s=>s.classList.toggle('on',c.d30&&s.dataset.d===d.d));
+  $('#readout').textContent=readout(c,d,S.alt);
+}
+function brief(){const p=P(),c=vcalc(),d=c.d30?decide(c):{title:'Baseline',why:''},I=S.inputs;
+  return `# Value Review · ${p.customer} (fictional)\n\n${p.eyebrow}. Illustrative 30-day pilot.\n\n## Scorecard\n\n| Layer | Metric | Baseline | ${c.d30?'Day 30':'Now'} | Gate | Owner |\n|---|---|---|---|---|---|\n| 1 Outcome | ${p.L1.metric} | ${p.L1.base}/12 | ${c.l1}/12 | ${p.L1.gateTxt} | ${p.L1.owner} |\n| 2 Speed | ${p.L2.metric} | ${p.L2.base} min | ${c.l2} min | ${p.L2.gateTxt} | ${p.L2.owner} |\n| 3 Efficiency | ${p.L3.metric} | ${p.L3.base}% | ${c.l3}% | ≥ ${p.L3.gate}% | ${p.L3.owner} |\n\n## Capacity\n\n- Created (observed): ${fmt(c.net)} h net (${fmt(c.gross)} h gross − ${c.d30?I.rev:0} h review)\n- Valued (assumed): ${money(c.value)} at $${I.rate}/h. Not cash.\n- Verified (cash): ${money(c.verified)}\n- Reinvested: ${c.reinvH} h\n\n## Day-30 decision\n\n**${d.title}.** ${d.why}\n\n## Readouts\n\n${p.personas.map((n,i)=>`**${n}:** ${readout(c,d,i)}`).join('\n\n')}\n\n---\nIllustrative data · synthetic pilot · prepared by Or Maman, Customer Success\n`;}
+
+/* ================= WALKTHROUGH ================= */
+function steps(){const p=P(),soc=S.preset==='soc';return [
+ ['#formula',`Start with the formula. ${soc?'SOC':'CS'} value is ${p.terms[0].toLowerCase()}, plus speed, plus capacity reinvested, minus the cost of vanity and unowned metrics.`],
+ ['#layer1',`<b>Layer 1 is for the board.</b> ${p.L1.base} of 12 passed at baseline, ${p.L1.cur} of 12 at day 30. The one that still fails has a name and an owner.`],
+ ['#layer2',`<b>Layer 2 is speed on one path only.</b> ${p.L2.base} minutes down to ${p.L2.cur}, inside the ${p.L2.gate}-minute gate. No global average.`],
+ ['#layer3',`<b>Layer 3 is where most value stories break.</b> Hours created are not dollars valued, and dollars valued are not verified cash.`],
+ ['#decision',`<b>Day 30 decides.</b> Metric gates are met, but an open gap blocks expansion. Tick "Gap closed" and the decision flips to Expand.`],
+ ['#readoutCard',`<b>Same scorecard, different altitudes.</b> Switch the audience and the readout rewrites itself from the same numbers.`],
+ ['#pipeline',`<b>The product measures, it does not claim.</b> Evidence in, frozen definitions, labelled assumptions, a decision out.`]]}
+function walk(i){$$('.walk-target').forEach(e=>e.classList.remove('walk-target'));const st=steps();
+  if(i<0||i>=st.length){S.walk=-1;document.body.classList.remove('walk-on');$('#walkbar').hidden=true;$('#walkBtn').lastChild.textContent='Walkthrough';return}
+  S.walk=i;document.body.classList.add('walk-on');const t=$(st[i][0]);t.classList.add('walk-target');t.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+  $('#walkbar').hidden=false;$('#walkStep').textContent=`${i+1} / ${st.length}`;$('#walkText').innerHTML=st[i][1];$('#walkNext').textContent=i===st.length-1?'Finish':'Next';$('#walkBtn').lastChild.textContent='Stop'}
+
+/* ================= SUCCESS AI ================= */
+let sample=null, apiOk=null, turns=[], ctl=null, busy=false;
+(async()=>{try{if(window.claude&&claude.use)sample=await claude.use('sample')}catch(e){sample=null}})();
+function portfolioCtx(){const k=calc(C,'90 days'),c=vcalc(),p=P(),d=c.d30?decide(c):null;
+  return JSON.stringify({snapshot:'2026-09-14 sample portfolio, fictional',portfolio:{nrr:+k.nrr.toFixed(1),grr:+k.grr.toFixed(1),arr:k.arr,health:k.health,renewal_arr_at_risk:k.risk,adoption:k.adoption,ttv_days:k.ttv,nps:k.nps},
+    accounts:C.map(a=>({name:a.name,segment:a.segment,owner:a.owner,arr:a.arr,health:a.health,adoption:a.adoption,renewal_days:a.renewal,nps:a.nps,goal:a.goal,signal:a.signal,next_action:a.action})),
+    value_pilot:{scenario:p.eyebrow,customer:p.customer,phase:S.phase,layer1:{metric:p.L1.metric,baseline:p.L1.base+'/12',current:c.l1+'/12',gate:p.L1.gateTxt},layer2:{metric:p.L2.metric,baseline_min:p.L2.base,current_min:c.l2,gate_min:p.L2.gate},layer3:{metric:p.L3.metric,baseline:p.L3.base,current:c.l3,gate:p.L3.gate},
+      capacity:{net_h:Math.round(c.net),gross_h:Math.round(c.gross),review_h:S.inputs.rev,assumed_rate:S.inputs.rate,assumed_value_usd:Math.round(c.value),verified_cash_usd:c.verified,reinvested_h:c.reinvH},open_gap:c.gapOpen?`${p.gap.id}: ${p.gap.text} Owner ${p.gap.owner}, retest day 37`:'none',decision:d?d.title:'not evaluated'},
+    raci:'CSM responsible for defining the value scorecard and accountable for value realization reviews; CISO accountable for the risk outcome'})}
+const RULES=(acct)=>`You are Success AI inside Value Control Center, a customer success workspace used by a Google Cloud Security customer success manager. Use only the data below. Never call assumed value "savings" or "ROI"; verified cash is only what the data says. Never credit AI alone for improvements. Name owners. Be concise (under 130 words unless asked), plain sentences, no markdown headings, no emoji. All data is fictional sample data.${acct?`\n\nYou are the dedicated agent for ${acct.name}. Focus on this account.`:''}\n\nDATA:\n${portfolioCtx()}`;
+function localAnswer(q,acct){const t=q.toLowerCase(),k=calc(C,'90 days'),c=vcalc(),p=P(),d=c.d30?decide(c):{title:'baseline only'};
+  if(acct){const a=acct;if(/email|draft/.test(t))return `Subject: A 30-minute value review\n\nHi ${a.contact.split(' · ')[0].split(' ')[0]},\n\nWe agreed the goal was to ${a.goal.charAt(0).toLowerCase()+a.goal.slice(1)}. I'd like to review where we stand, agree on one outcome for the next 30 days, and confirm who owns it. Could we meet this week?\n\nBest,\n${a.owner}`;
+    if(/evidence|prove/.test(t))return `For ${a.name}, prove value against the stated goal: ${a.goal}. Bring the baseline, the current figure and who verified it. Today's evidence: adoption ${a.adoption}%, time to first value ${a.ttv} days, NPS ${a.nps}. The gap to address: ${a.signal}`;
+    return `${a.name}: health ${a.health}, ${M(a.arr)} ARR, renewal in ${a.renewal} days. Goal: ${a.goal}. Latest signal: ${a.signal} Recommended move: ${a.action}. Open by restating their goal, agree on one measurable outcome for the next 30 days, and leave with a named owner and a review date.`;}
+  if(/cfo|board|sentence/.test(t))return readout(c,d,0);
+  if(/block|expan|gap|own/.test(t))return c.gapOpen&&c.d30?`Expansion is blocked by ${p.gap.id}. ${p.gap.text} ${p.gap.owner} owns it, with a retest on day 37. All three metric gates are met, so once the retest passes the decision moves from "remediate" to "expand".`:`Nothing blocks expansion now: all gates are met and no critical gap is open. Decision: ${d.title}.`;
+  if(/risk|renewal|leadership/.test(t))return `${M(k.risk)} of renewal ARR sits in accounts with health below 60 and a renewal inside 90 days. Northstar ($1.65M, 23 days, health 48): the champion left and usage fell 31%, so start an executive recovery plan with the COO. Kinetic ($540K, 51 days, health 52): budget review is underway, so build a measurable ROI recovery plan. Net retention holds at ${k.nrr.toFixed(1)}%.`;
+  if(/focus|today|priorit/.test(t))return `Start with Northstar: $1.65M renews in 23 days at health 48 after the champion left. Book the COO for a recovery conversation this week. Then Kinetic: a CFO budget review is underway, so bring a 30-day value scorecard. On the upside, Atlas Cloud has $350K of expansion ready across three teams.`;
+  return `Portfolio: ${M(k.arr)} ARR, net retention ${k.nrr.toFixed(1)}%, health ${k.health}. ${M(k.risk)} is at risk across 2 renewals. Value pilot: ${c.l1}/12 passing, ${c.l2} min on the path, ${fmt(c.net)} net hours valued at ${money(c.value)} (assumed), $${c.verified} verified. Decision: ${d.title}.`;}
+async function askAI(msgs,acct,onText){
+  const sys=RULES(acct);
+  if(sample){try{const r=await sample([{role:'user',content:sys},...msgs],{cache:false,signal:ctl?.signal,onText:({text})=>onText(text)});return {text:r.text}}
+    catch(e){if(e&&e.code==='cancelled')throw e;if(['not_granted','sampling_disabled','not_declared','capability_disabled','capability_removed'].includes(e&&e.code))sample=null;else throw e}}
+  if(apiOk!==false&&!window.claude){try{const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:sys,messages:msgs}),signal:ctl?.signal});
+      if(r.ok&&r.body){apiOk=true;const rd=r.body.getReader(),dec=new TextDecoder();let t='';for(;;){const {done,value}=await rd.read();if(done)break;t+=dec.decode(value,{stream:true});onText(t)}if(t.trim())return {text:t}}
+      apiOk=false}catch(e){if(e.name==='AbortError')throw {code:'cancelled'};apiOk=false}}
+  const t=localAnswer(msgs[msgs.length-1].content,acct);onText(t);return {text:t,local:true};}
+function openAI(){$('#ai').classList.add('open');$('#ai').setAttribute('aria-hidden','false');$('#scrim').classList.add('on');setTimeout(()=>$('#aiText').focus(),200)}
+function closeAI(){$('#ai').classList.remove('open');$('#ai').setAttribute('aria-hidden','true');if(!$('#drawer').classList.contains('open'))$('#scrim').classList.remove('on')}
+function addMsg(cls,t){const m=document.createElement('div');m.className='msg '+cls;m.textContent=t;$('#aiLog').appendChild(m);$('#aiLog').scrollTop=1e9;return m}
+function greet(){$('#aiLog').innerHTML='';turns=[];addMsg('bot','I’m Success AI. I can see the 12-account portfolio and the value scorecard. Ask where to focus, prepare a call, or draft an executive update.');$('#suggest').hidden=false}
+async function ask(q){if(busy)return;openAI();$('#suggest').hidden=true;$('#aiText').value='';addMsg('me',q);turns.push({role:'user',content:q});
+  const out=addMsg('bot','Thinking…');busy=true;$('#aiSend').disabled=true;ctl=new AbortController();
+  try{const r=await askAI(turns.slice(-8),null,t=>{out.textContent=t;$('#aiLog').scrollTop=1e9});out.textContent=r.text;turns.push({role:'assistant',content:r.text});if(r.local)addMsg('note','Composed from the data on this page. Live AI is not connected in this view.')}
+  catch(e){out.textContent=(e&&e.text)||'';addMsg('note',e&&e.code==='cancelled'?'Stopped.':e&&e.code==='rate_limited'?'Too many requests right now. Try again in a minute.':'The answer was interrupted. Send it again to retry.');turns.pop()}
+  finally{busy=false;$('#aiSend').disabled=false}}
+
+/* ================= ROUTING & EVENTS ================= */
+const VIEWS=['overview','customers','agents','playbooks','soc-value','method'],SUB=['layer1','layer2','layer3','anti','decision','formula','pipeline'];
+const CRUMB={overview:'Customer Success · Portfolio',customers:'Customers',agents:'Customer agents',playbooks:'Playbooks & action queue','soc-value':'Value scorecard',method:'Method & evidence'};
+function route(){const h=(location.hash||'').slice(1);const v=VIEWS.includes(h)?h:SUB.includes(h)?'soc-value':'overview';if(v!==S.view){closeDrawer();closeAI()}S.view=v;
+  $$('.view').forEach(el=>el.hidden=el.id!=='view-'+v);$$('.rail a').forEach(a=>a.setAttribute('aria-current',a.dataset.view===v?'page':'false'));$('#crumb').textContent=CRUMB[v];
+  if(v!=='soc-value'&&S.walk>=0)walk(-1);
+  if(SUB.includes(h)){const t=document.getElementById(h);if(t)setTimeout(()=>t.scrollIntoView({behavior:'smooth',block:'start'}),30)}else window.scrollTo(0,0)}
+window.addEventListener('hashchange',route);
+document.addEventListener('click',e=>{const a=e.target.closest('[data-acct]');if(a){e.preventDefault();openAcct(a.dataset.acct);return}
+  const hb=e.target.closest('[data-health]');if(hb){S.chealth=hb.dataset.health;$('#custHealth').value=S.chealth;S.cseg=S.seg;$('#custSeg').value=S.cseg;renderCustomers();location.hash='customers';return}
+  const pb=e.target.closest('[data-play]');if(pb){const p=PLAYS[+pb.dataset.play];$('#playTitle').textContent=p.name;$('#playAcct').innerHTML=C.map(c=>`<option value="${c.id}" ${c.id===p.def?'selected':''}>${esc(c.name)} · health ${c.health}</option>`).join('');$('#playModal').dataset.play=pb.dataset.play;$('#playModal').hidden=false;$('#playAcct').focus();return}
+  const qt=e.target.closest('[data-qtoggle]');if(qt){const q=queue.find(x=>x.id===qt.dataset.qtoggle);q.done=!q.done;saveQ();renderPlaybooks();return}
+  const qd=e.target.closest('[data-qdel]');if(qd){queue=queue.filter(x=>x.id!==qd.dataset.qdel);saveQ();renderPlaybooks();return}});
+$('#playCancel').onclick=()=>$('#playModal').hidden=true;
+$('#playForm').onsubmit=e=>{e.preventDefault();const p=PLAYS[+$('#playModal').dataset.play],id=$('#playAcct').value;p.steps.slice().reverse().forEach(s=>addQ(id,s));$('#playModal').hidden=true;toast(`${p.name} added for ${byId(id).name}`)};
+$('#segSel').onchange=e=>{S.seg=e.target.value;renderOverview()};
+$$('#periodSeg button').forEach(b=>b.onclick=()=>{S.period=b.dataset.p;$$('#periodSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderOverview()});
+$('#custSearch').oninput=e=>{S.cq=e.target.value;renderCustomers()};$('#custSeg').onchange=e=>{S.cseg=e.target.value;renderCustomers()};$('#custHealth').onchange=e=>{S.chealth=e.target.value;renderCustomers()};
+$$('#view-customers th button').forEach(b=>b.onclick=()=>{if(S.sort===b.dataset.sort)S.sdir*=-1;else{S.sort=b.dataset.sort;S.sdir=b.dataset.sort==='name'||b.dataset.sort==='renewal'?1:-1}renderCustomers()});
+$$('#dTabs button').forEach(b=>b.onclick=()=>{S.tab=b.dataset.t;renderDrawer()});
+$('#dClose').onclick=closeDrawer;
+$$('#presetSeg button').forEach(b=>b.onclick=()=>{S.preset=b.dataset.preset;S.alt=0;$$('#presetSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));inputsReset();renderStatic();renderSOC();if(S.walk>=0)walk(S.walk)});
+$$('#phaseSeg button').forEach(b=>b.onclick=()=>{S.phase=b.dataset.phase;$$('#phaseSeg button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderSOC()});
+$('#in-gap').onchange=e=>{S.gapClosed=e.target.checked;renderSOC()};
+$('#walkBtn').onclick=()=>walk(S.walk>=0?-1:0);$('#walkNext').onclick=()=>walk(S.walk+1);$('#walkPrev').onclick=()=>walk(Math.max(0,S.walk-1));$('#walkStop').onclick=()=>walk(-1);
+$('#presentBtn').onclick=togglePresent;
+function togglePresent(){const on=!document.body.classList.contains('present');document.body.classList.toggle('present',on);$('#presentBtn').setAttribute('aria-pressed',on);toast(on?'Present mode · press P to exit':'Present mode off')}
+document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;
+  if(e.key==='p'||e.key==='P')togglePresent();
+  if(e.key==='Escape'){if(!$('#playModal').hidden)$('#playModal').hidden=true;else if(S.walk>=0)walk(-1);else{closeAI();closeDrawer()}}
+  if(S.walk>=0&&(e.key==='ArrowRight'||e.key===' ')){e.preventDefault();walk(S.walk+1)}
+  if(S.walk>=0&&e.key==='ArrowLeft')walk(Math.max(0,S.walk-1))});
+$('#copyRo').onclick=()=>{const t=$('#readout').textContent;navigator.clipboard.writeText(t).then(()=>toast('Readout copied')).catch(()=>{const r=document.createRange();r.selectNodeContents($('#readout'));const s=getSelection();s.removeAllRanges();s.addRange(r);toast('Text selected · press Ctrl+C')})};
+$('#exportBtn').onclick=async()=>{const md=brief(),name=`value-review-${P().customer.toLowerCase().replace(/\s+/g,'-')}.md`;let dl=null;
+  try{if(window.claude&&claude.use)dl=await claude.use('downloads')}catch(e){}
+  if(dl){try{await dl.save({filename:name,data:md});toast('Brief saved');return}catch(e){if(e&&e.code==='declined')return}}
+  if(!window.claude){const u=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast('Brief downloaded');return}
+  navigator.clipboard?.writeText(md).then(()=>toast('Brief copied as Markdown')).catch(()=>toast('Export is not available in this view'))};
+$('#aiBtn').onclick=openAI;$('#aiClose').onclick=closeAI;$('#scrim').onclick=()=>{closeAI();closeDrawer()};
+$('#aiNew').onclick=()=>{ctl?.abort();greet()};
+$$('#suggest button').forEach(b=>b.onclick=()=>ask(b.textContent));
+$('#aiForm').onsubmit=e=>{e.preventDefault();const t=$('#aiText').value.trim();if(t)ask(t)};
+$('#aiText').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#aiForm').requestSubmit()}};
+$('#aiRo').onclick=()=>ask(`Rewrite the ${P().personas[S.alt]} readout so it is sharper and under 70 words. Keep every number exactly as given and keep assumed value separate from verified cash.`);
+$('#kiDefs').innerHTML=KI.map(([a,b,c])=>`<dt>${a}</dt><dd>${b} <span class="pill neutral" style="margin-left:4px">${c}</span></dd>`).join('');
+
+greet();renderOverview();renderCustomers();renderAgents();renderPlaybooks();renderStatic();renderSOC();route();
+})();
+
+</script>
+</body>
+</html>
