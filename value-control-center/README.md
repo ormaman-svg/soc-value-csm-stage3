@@ -17,6 +17,8 @@ Press **P** for present mode. Notes and the action queue are stored in the brows
 
 `api/chat.js` streams answers from OpenAI when the Vercel project has `OPENAI_API_KEY` set (optional `OPENAI_MODEL`). Without it, the page answers from its own sample data so the demo never breaks.
 
+**Live voice.** The mic button in the Success AI panel starts a spoken conversation using the OpenAI Realtime API over WebRTC. `api/realtime.js` mints a two-minute client key, so `OPENAI_API_KEY` never reaches the browser. The session gets the same grounded portfolio and scorecard data as the text chat, and both sides of the call are transcribed into the panel. Typing while a call is live sends the text into the call. Optional: `OPENAI_REALTIME_MODEL` (default `gpt-realtime`) and `OPENAI_REALTIME_VOICE` (default `marin`). Voice is hidden when the page runs inside Claude, because it needs the Vercel function.
+
 ## Deploy
 
 Static page plus two serverless functions. Deploy this folder to Vercel with no build step.
