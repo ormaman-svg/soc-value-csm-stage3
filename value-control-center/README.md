@@ -19,4 +19,4 @@ Press **P** for present mode. Notes and the action queue are stored in the brows
 
 ## Deploy
 
-Static page plus one serverless function. Deploy this folder to Vercel with no build step.
+Static page plus two serverless functions. Deploy this folder to Vercel with no build step.

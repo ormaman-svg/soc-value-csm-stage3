@@ -361,6 +361,13 @@ th button:focus-visible{outline:2px solid var(--blue)}
 .walkbar button.primary{background:var(--blue-bar);color:#fff}
 @media (max-width:760px){.walkbar{bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
 .ai-panel-card{background:linear-gradient(160deg,var(--blue-soft),var(--surface) 70%);}
+.ai-input .voice-btn{align-self:center;flex:none;width:40px;height:40px}
+.voice-btn[data-state="connecting"]{color:var(--blue);animation:vpulse 1.4s ease-in-out infinite}
+.voice-btn[data-state="live"]{background:var(--g2);color:#fff}
+.voice-btn[data-state="live"]:hover{background:var(--g2);filter:brightness(.92)}
+.ai.voice-on .ai-head .spark-ic{animation:vpulse 1.6s ease-in-out infinite}
+@keyframes vpulse{50%{box-shadow:0 0 0 6px rgba(66,133,244,.28)}}
+@media (prefers-reduced-motion:reduce){.voice-btn,.ai.voice-on .ai-head .spark-ic{animation:none}}
 </style>
 </head>
 <body>
@@ -568,7 +575,7 @@ th button:focus-visible{outline:2px solid var(--blue)}
     <button>What blocks expansion, and who owns it?</button>
     <button>Summarize renewal risk for leadership.</button>
   </div>
-  <form class="ai-input" id="aiForm"><textarea id="aiText" placeholder="Ask about the portfolio or the scorecard…" aria-label="Message"></textarea><button class="btn" id="aiSend" type="submit">Send</button></form>
+  <form class="ai-input" id="aiForm"><textarea id="aiText" placeholder="Ask about the portfolio or the scorecard…" aria-label="Message"></textarea><button class="iconbtn voice-btn" id="aiVoice" type="button" title="Start live voice" aria-label="Start live voice" aria-pressed="false" data-state="off" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></button><button class="btn" id="aiSend" type="submit">Send</button></form>
   <div class="ai-foot">Answers use fictional sample data. Do not enter confidential data.</div>
 </aside>
 
@@ -878,10 +885,10 @@ let sample=null, apiOk=null, turns=[], ctl=null, busy=false;
 function portfolioCtx(){const k=calc(C,'90 days'),c=vcalc(),p=P(),d=c.d30?decide(c):null;
   return JSON.stringify({snapshot:'2026-09-14 sample portfolio, fictional',portfolio:{nrr:+k.nrr.toFixed(1),grr:+k.grr.toFixed(1),arr:k.arr,health:k.health,renewal_arr_at_risk:k.risk,adoption:k.adoption,ttv_days:k.ttv,nps:k.nps},
     accounts:C.map(a=>({name:a.name,segment:a.segment,owner:a.owner,arr:a.arr,health:a.health,adoption:a.adoption,renewal_days:a.renewal,nps:a.nps,goal:a.goal,signal:a.signal,next_action:a.action})),
-    value_pilot:{scenario:p.eyebrow,customer:p.customer,phase:S.phase,layer1:{metric:p.L1.metric,baseline:p.L1.base+'/12',current:c.l1+'/12',gate:p.L1.gateTxt},layer2:{metric:p.L2.metric,baseline_min:p.L2.base,current_min:c.l2,gate_min:p.L2.gate},layer3:{metric:p.L3.metric,baseline:p.L3.base,current:c.l3,gate:p.L3.gate},
+    value_pilot:{scenario:p.eyebrow,customer:p.customer,phase:S.phase,layer1:{metric:p.L1.metric,baseline:p.L1.base+'/12',current:c.l1+'/12',gate:p.L1.gateTxt,higher_is_better:true,meets_gate:c.l1>=p.L1.gate},layer2:{metric:p.L2.metric,baseline_min:p.L2.base,current_min:c.l2,gate_min:p.L2.gate,lower_is_better:true,meets_gate:c.l2<=p.L2.gate},layer3:{metric:p.L3.metric,baseline:p.L3.base,current:c.l3,gate:p.L3.gate,higher_is_better:true,meets_gate:c.l3>=p.L3.gate},
       capacity:{net_h:Math.round(c.net),gross_h:Math.round(c.gross),review_h:S.inputs.rev,assumed_rate:S.inputs.rate,assumed_value_usd:Math.round(c.value),verified_cash_usd:c.verified,reinvested_h:c.reinvH},open_gap:c.gapOpen?`${p.gap.id}: ${p.gap.text} Owner ${p.gap.owner}, retest day 37`:'none',decision:d?d.title:'not evaluated'},
     raci:'CSM responsible for defining the value scorecard and accountable for value realization reviews; CISO accountable for the risk outcome'})}
-const RULES=(acct)=>`You are Success AI inside Value Control Center, a customer success workspace used by a Google Cloud Security customer success manager. Use only the data below. Never call assumed value "savings" or "ROI"; verified cash is only what the data says. Never credit AI alone for improvements. Name owners. Be concise (under 130 words unless asked), plain sentences, no markdown headings, no emoji. All data is fictional sample data.${acct?`\n\nYou are the dedicated agent for ${acct.name}. Focus on this account.`:''}\n\nDATA:\n${portfolioCtx()}`;
+const RULES=(acct,spoken)=>`You are Success AI inside Value Control Center, a customer success workspace used by a Google Cloud Security customer success manager. Use only the data below. Use each layer's meets_gate field to say whether a metric passes its gate. Never call assumed value "savings" or "ROI"; verified cash is only what the data says. Never credit AI alone for improvements. Name owners. ${spoken?'You are speaking aloud in a live voice call: answer in two or three short spoken sentences, no lists, say numbers naturally, and offer to go deeper. Reply in the language the user speaks.':'Be concise (under 130 words unless asked), plain sentences, no markdown headings, no emoji.'} All data is fictional sample data.${acct?`\n\nYou are the dedicated agent for ${acct.name}. Focus on this account.`:''}\n\nDATA:\n${portfolioCtx()}`;
 function localAnswer(q,acct){const t=q.toLowerCase(),k=calc(C,'90 days'),c=vcalc(),p=P(),d=c.d30?decide(c):{title:'baseline only'};
   if(acct){const a=acct;if(/email|draft/.test(t))return `Subject: A 30-minute value review\n\nHi ${a.contact.split(' · ')[0].split(' ')[0]},\n\nWe agreed the goal was to ${a.goal.charAt(0).toLowerCase()+a.goal.slice(1)}. I'd like to review where we stand, agree on one outcome for the next 30 days, and confirm who owns it. Could we meet this week?\n\nBest,\n${a.owner}`;
     if(/evidence|prove/.test(t))return `For ${a.name}, prove value against the stated goal: ${a.goal}. Bring the baseline, the current figure and who verified it. Today's evidence: adoption ${a.adoption}%, time to first value ${a.ttv} days, NPS ${a.nps}. The gap to address: ${a.signal}`;
@@ -900,14 +907,42 @@ async function askAI(msgs,acct,onText){
       apiOk=false}catch(e){if(e.name==='AbortError')throw {code:'cancelled'};apiOk=false}}
   const t=localAnswer(msgs[msgs.length-1].content,acct);onText(t);return {text:t,local:true};}
 function openAI(){$('#ai').classList.add('open');$('#ai').setAttribute('aria-hidden','false');$('#scrim').classList.add('on');setTimeout(()=>$('#aiText').focus(),200)}
-function closeAI(){$('#ai').classList.remove('open');$('#ai').setAttribute('aria-hidden','true');if(!$('#drawer').classList.contains('open'))$('#scrim').classList.remove('on')}
+function closeAI(){stopVoice();$('#ai').classList.remove('open');$('#ai').setAttribute('aria-hidden','true');if(!$('#drawer').classList.contains('open'))$('#scrim').classList.remove('on')}
 function addMsg(cls,t){const m=document.createElement('div');m.className='msg '+cls;m.textContent=t;$('#aiLog').appendChild(m);$('#aiLog').scrollTop=1e9;return m}
 function greet(){$('#aiLog').innerHTML='';turns=[];addMsg('bot','I’m Success AI. I can see the 12-account portfolio and the value scorecard. Ask where to focus, prepare a call, or draft an executive update.');$('#suggest').hidden=false}
 async function ask(q){if(busy)return;openAI();$('#suggest').hidden=true;$('#aiText').value='';addMsg('me',q);turns.push({role:'user',content:q});
+  if(voice?.dc?.readyState==='open'){voice.dc.send(JSON.stringify({type:'conversation.item.create',item:{type:'message',role:'user',content:[{type:'input_text',text:q}]}}));voice.dc.send(JSON.stringify({type:'response.create'}));return}
   const out=addMsg('bot','Thinking…');busy=true;$('#aiSend').disabled=true;ctl=new AbortController();
   try{const r=await askAI(turns.slice(-8),null,t=>{out.textContent=t;$('#aiLog').scrollTop=1e9});out.textContent=r.text;turns.push({role:'assistant',content:r.text});if(r.local)addMsg('note','Composed from the data on this page. Live AI is not connected in this view.')}
   catch(e){out.textContent=(e&&e.text)||'';addMsg('note',e&&e.code==='cancelled'?'Stopped.':e&&e.code==='rate_limited'?'Too many requests right now. Try again in a minute.':'The answer was interrupted. Send it again to retry.');turns.pop()}
   finally{busy=false;$('#aiSend').disabled=false}}
+
+/* Live voice: OpenAI Realtime over WebRTC. Needs the Vercel site's /api/realtime, so it stays hidden inside Claude. */
+let voice=null;
+const voiceOK=!window.claude&&!!(window.RTCPeerConnection&&navigator.mediaDevices&&navigator.mediaDevices.getUserMedia);
+function voiceUI(st){const b=$('#aiVoice');b.dataset.state=st;b.setAttribute('aria-pressed',st!=='off');const l=st==='off'?'Start live voice':'End live voice';b.title=l;b.setAttribute('aria-label',l);
+  $('#ai').classList.toggle('voice-on',st==='live');$('#aiStatus').textContent=st==='connecting'?'Connecting live voice…':st==='live'?'Live voice · speak any time, interrupt freely':'Grounded in the portfolio and scorecard on screen'}
+async function startVoice(){if(voice)return;ctl?.abort();openAI();$('#suggest').hidden=true;const v=voice={items:{}};voiceUI('connecting');
+  try{const s=await fetch('/api/realtime',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({instructions:RULES(null,true)})});
+    const cfg=await s.json().catch(()=>({}));if(!s.ok||!cfg.key)throw new Error(s.status===503?'Live voice is not configured on this site.':cfg.error||'Live voice is not available right now.');
+    v.mic=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});if(voice!==v){v.mic.getTracks().forEach(t=>t.stop());return}
+    const pc=v.pc=new RTCPeerConnection();v.audio=new Audio();v.audio.autoplay=true;pc.ontrack=e=>{v.audio.srcObject=e.streams[0]};pc.addTrack(v.mic.getTracks()[0],v.mic);
+    const dc=v.dc=pc.createDataChannel('oai-events');dc.onmessage=e=>{try{voiceEvent(v,JSON.parse(e.data))}catch(_){}};
+    dc.onopen=()=>{if(voice!==v)return;voiceUI('live');dc.send(JSON.stringify({type:'response.create',response:{instructions:'Greet the user in one short sentence and ask what they would like to review.'}}))};
+    pc.onconnectionstatechange=()=>{if(voice===v&&['failed','closed'].includes(pc.connectionState)){addMsg('note','Live voice disconnected.');stopVoice()}};
+    const offer=await pc.createOffer();await pc.setLocalDescription(offer);
+    const r=await fetch('https://api.openai.com/v1/realtime/calls?model='+encodeURIComponent(cfg.model),{method:'POST',body:offer.sdp,headers:{Authorization:'Bearer '+cfg.key,'Content-Type':'application/sdp'}});
+    if(!r.ok)throw new Error('The voice service did not accept the call.');
+    if(voice===v)await pc.setRemoteDescription({type:'answer',sdp:await r.text()})}
+  catch(e){if(voice===v){addMsg('note',e&&e.name==='NotAllowedError'?'Microphone access was blocked. Allow it in the browser to use live voice.':(e&&e.message)||'Live voice could not start.');stopVoice()}}}
+function stopVoice(){const v=voice;voice=null;if(v){try{v.dc?.close();v.pc?.close()}catch(_){}v.mic?.getTracks().forEach(t=>t.stop());if(v.audio)v.audio.srcObject=null}voiceUI('off')}
+function voiceEvent(v,e){if(voice!==v)return;const t=e.type||'';
+  if(t==='input_audio_buffer.committed'&&e.item_id){v.items[e.item_id]=addMsg('me','…')}
+  else if(t==='conversation.item.input_audio_transcription.completed'){const q=(e.transcript||'').trim(),m=v.items[e.item_id];if(!q){m?.remove();return}if(m)m.textContent=q;else addMsg('me',q);turns.push({role:'user',content:q})}
+  else if(t==='conversation.item.input_audio_transcription.failed'){v.items[e.item_id]?.remove()}
+  else if(/^response\.(output_)?audio_transcript\.delta$/.test(t)){if(!v.bot){v.bot=addMsg('bot','');v.botText=''}v.botText+=e.delta||'';v.bot.textContent=v.botText;$('#aiLog').scrollTop=1e9}
+  else if(/^response\.(output_)?audio_transcript\.done$/.test(t)){const a=e.transcript||v.botText||'';if(v.bot)v.bot.textContent=a;if(a)turns.push({role:'assistant',content:a});v.bot=null}
+  else if(t==='error')addMsg('note',(e.error&&e.error.message)||'Live voice error.')}
 
 /* ================= ROUTING & EVENTS ================= */
 const VIEWS=['overview','customers','agents','playbooks','soc-value','method'],SUB=['layer1','layer2','layer3','anti','decision','formula','pipeline'];
@@ -948,7 +983,8 @@ $('#exportBtn').onclick=async()=>{const md=brief(),name=`value-review-${P().cust
   if(!window.claude){const u=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);toast('Brief downloaded');return}
   navigator.clipboard?.writeText(md).then(()=>toast('Brief copied as Markdown')).catch(()=>toast('Export is not available in this view'))};
 $('#aiBtn').onclick=openAI;$('#aiClose').onclick=closeAI;$('#scrim').onclick=()=>{closeAI();closeDrawer()};
-$('#aiNew').onclick=()=>{ctl?.abort();greet()};
+$('#aiNew').onclick=()=>{ctl?.abort();stopVoice();greet()};
+$('#aiVoice').hidden=!voiceOK;$('#aiVoice').onclick=()=>voice?stopVoice():startVoice();
 $$('#suggest button').forEach(b=>b.onclick=()=>ask(b.textContent));
 $('#aiForm').onsubmit=e=>{e.preventDefault();const t=$('#aiText').value.trim();if(t)ask(t)};
 $('#aiText').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#aiForm').requestSubmit()}};
