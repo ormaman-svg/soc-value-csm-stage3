@@ -8,7 +8,7 @@ Customer success workspace and SOC Value Scorecard, in the same Google style as 
 - **Customers**: 12 accounts with search, segment and health filters, and sorting.
 - **Customer agents**: per-account briefing, meeting prep for 7 meeting types, context notes, and an account-scoped assistant.
 - **Playbooks**: renewal rescue, expansion readiness, adoption accelerator, and an action queue.
-- **Value scorecard**: Stage 3 · SOC and General CS scenarios, three layers with gates and owners, created ≠ valued ≠ verified funnel with live inputs, day-30 decision engine, readouts by altitude, walkthrough mode, Markdown brief export.
+- **Value scorecard**: a six-step pilot tracker (outcome, baseline, adoption plan, execution, evidence, decision) that follows the Baseline / Day 30 view, Stage 3 · SOC and General CS scenarios, three layers with gates and owners, created ≠ valued ≠ verified funnel with live inputs, day-30 decision engine, readouts by altitude, walkthrough mode, Markdown brief export.
 - **Method & evidence**: metric definitions, no-baseline methods, attribution limits, AI governance.
 
 Press **P** for present mode. Notes and the action queue are stored in the browser.
