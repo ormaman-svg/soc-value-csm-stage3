@@ -4,7 +4,7 @@ Customer success workspace and SOC Value Scorecard, in the same Google style as 
 
 ## Views
 
-- **Portfolio**: NRR, GRR, ARR, health, renewal ARR at risk, adoption, time to first value, NPS. Segment and period filters recalculate every figure.
+- **Portfolio**: NRR and GRR tiles, ARR, health, renewal ARR at risk, adoption, time to first value, NPS. Segment and period filters recalculate every figure.
 - **Customers**: 12 security customers with search, segment and health filters, and sorting. Halden Financial is the account running the SOC value pilot; its briefing links to the scorecard.
 - **Customer agents**: per-account briefing, meeting prep for 7 meeting types, context notes, and an account-scoped assistant.
 - **Playbooks**: renewal rescue, expansion readiness, adoption accelerator, and an action queue.
