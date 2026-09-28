@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         model,
         instructions: String(instructions).slice(0, 60000),
         audio: {
-          input: { transcription: { model: 'gpt-4o-mini-transcribe' }, turn_detection: { type: 'server_vad' } },
+          input: { transcription: { model: 'gpt-4o-mini-transcribe', language: 'en' }, turn_detection: { type: 'server_vad' } },
           output: { voice: process.env.OPENAI_REALTIME_VOICE || 'marin' },
         },
       },
