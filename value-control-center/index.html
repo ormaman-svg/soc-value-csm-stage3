@@ -669,10 +669,10 @@ function acctRow(c,extra){return `<tr class="click" data-acct="${c.id}"><td><div
 function renderOverview(){
   const list=scope(), k=calc(list,S.period);
   $('#kpis').innerHTML=[
-    ['Net revenue retention',`${k.nrr.toFixed(1)}<small>%</small>`,`<span class="${k.nrr>=110?'up':'down'}">${k.nrr>=100?'▲':'▼'} ${(k.nrr-100).toFixed(1)}% net</span><span class="muted">Target 110%</span>`],
-    ['Gross revenue retention',`${k.grr.toFixed(1)}<small>%</small>`,`<span class="${k.grr>=95?'':'down'}">${M(k.loss)} lost</span><span class="muted">Target 95%</span>`],
+    ['Net revenue retention',`${k.nrr.toFixed(1)}<small>%</small>`,`<span class="${k.nrr>=110?'up':'down'}">${k.nrr>=100?'▲':'▼'} ${(k.nrr-100).toFixed(1)}% net</span><span class="muted">Target ≥ 110%</span>`],
+    ['Gross revenue retention',`${k.grr.toFixed(1)}<small>%</small>`,`<span class="${k.grr>=95?'':'down'}">${M(k.loss)} lost</span><span class="muted">Target ≥ 95%</span>`],
     ['Managed recurring revenue',M(k.arr),`<span class="up">▲ ${M(k.exp-k.loss)} net</span><span class="muted">${S.period}</span>`],
-    ['Portfolio health',`${k.health}<small>/100</small>`,`<span>${k.healthy} healthy accounts</span><span class="muted">Target 80+</span>`],
+    ['Portfolio health',`${k.health}<small>/100</small>`,`<span>${k.healthy} healthy accounts</span><span class="muted">Target ≥ 80</span>`],
     ['Renewal ARR at risk',M(k.risk),`<span class="${k.riskN?'down':'up'}">${k.riskN} need${k.riskN===1?'s':''} a plan</span><span class="muted">Next 90 days</span>`]
   ].map(([l,v,f])=>`<a class="card kpi" href="#method" style="text-decoration:none;color:inherit"><div class="label">${l}<span class="muted">ⓘ</span></div><div class="value num">${v}</div><div class="foot">${f}</div></a>`).join('');
   const top=list.filter(c=>c.health<60&&c.renewal<=90).sort((a,b)=>a.renewal-b.renewal)[0];
