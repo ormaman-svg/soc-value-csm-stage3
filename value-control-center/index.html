@@ -377,7 +377,7 @@ th button:focus-visible{outline:2px solid var(--blue)}
 .att-row .att-name{color:var(--ink)}
 @media (max-width:560px){.att-row{grid-template-columns:40px 70px minmax(0,1fr)}.att-row .pill{grid-column:2/-1;justify-self:start}}
 
-.pilot{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.pilot{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 .pstep{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--line2);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
 .pstep .pk{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
 .pstep .pa{font-size:14px;font-weight:500;color:var(--ink)}
@@ -857,11 +857,12 @@ function renderStatic(){const p=P();
   $('#in-gap').checked=S.gapClosed;
 }
 function renderPilot(c){const p=P(),soc=S.preset==='soc',exec=soc?'CISO':'Sponsor',lead=soc?'SOC lead':'Ops lead',d=decide(c);
-  const st=[['Outcome','Agree on one risk',exec],['Baseline','Freeze the 3 metrics',lead],['Adoption plan','Gaps, owners, dates',lead],['Execution','Remove blockers',lead],['Evidence','Day-30 review',exec],['Decision','Expand · remediate · redesign · stop',soc?'CISO + sponsor':'Sponsor']];
-  const state=i=>{if(!c.d30)return i<2?['done','Done']:i===2?['now','In progress']:['next','Upcoming'];
+  const st=[['Baseline','One risk, 1 + 1 + 1 frozen',lead],['Adoption plan','Gaps, owners, dates',lead],['Cross-functional execution','Every gap closed by its owner',lead],['Evidence review','Against the frozen baseline',exec],['Next decision','Expand · remediate · redesign · stop',soc?'CISO + sponsor':'Sponsor']];
+  const L=st.length-1;
+  const state=i=>{if(!c.d30)return i<1?['done','Done']:i===1?['now','In progress']:['next','Upcoming'];
     if(i===2&&c.gapOpen)return['warn',p.gap.id+' open · '+p.gap.owner.split(',')[0]];
-    if(i===5)return['now',d.d.charAt(0).toUpperCase()+d.d.slice(1)];return['done','Done']};
-  $('#pilotTrack').innerHTML=st.map(([k,a,o],i)=>{const[cls,lbl]=state(i);return `<li class="pstep ${cls}"><div class="pk"><span class="mono">${String(i+1).padStart(2,'0')}</span> ${k}</div><div class="pa">${i===5&&c.d30?lbl:a}</div><div class="pf"><span class="po">${o}</span><span class="ps">${i===5&&c.d30?'Decision':lbl}</span></div></li>`}).join('')}
+    if(i===L)return['now',d.d.charAt(0).toUpperCase()+d.d.slice(1)];return['done','Done']};
+  $('#pilotTrack').innerHTML=st.map(([k,a,o],i)=>{const[cls,lbl]=state(i);return `<li class="pstep ${cls}"><div class="pk"><span class="mono">${String(i+1).padStart(2,'0')}</span> ${k}</div><div class="pa">${i===L&&c.d30?lbl:a}</div><div class="pf"><span class="po">${o}</span><span class="ps">${i===L&&c.d30?'Decision':lbl}</span></div></li>`}).join('')}
 function renderSOC(){const p=P(),c=vcalc(),I=S.inputs;renderPilot(c);
   $('#l1Val').textContent=c.l1;$('#l2Val').textContent=c.l2;$('#l3Val').textContent=c.l3;
   $('#l1Pill').innerHTML=c.d30?(c.l1>=p.L1.gate?(c.gapOpen?'<span class="pill warn"><i></i>Gate met · gap open</span>':'<span class="pill ok"><i></i>Gate met</span>'):'<span class="pill bad"><i></i>Gate missed</span>'):'<span class="pill neutral"><i></i>Baseline</span>';

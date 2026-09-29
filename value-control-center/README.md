@@ -8,7 +8,7 @@ Customer success workspace and SOC Value Scorecard, in the same Google style as 
 - **Customers**: 12 security customers with search, segment and health filters, and sorting. Halden Financial is the account running the SOC value pilot; its briefing links to the scorecard.
 - **Customer agents**: per-account briefing, meeting prep for 7 meeting types, context notes, and an account-scoped assistant.
 - **Playbooks**: renewal rescue, expansion readiness, adoption accelerator, and an action queue.
-- **Value scorecard**: a six-step pilot tracker (outcome, baseline, adoption plan, execution, evidence, decision) that follows the Baseline / Day 30 view, Stage 3 · SOC and General CS scenarios, three layers with gates and owners, created ≠ valued ≠ verified funnel with live inputs, day-30 decision engine, readouts by altitude, walkthrough mode, Markdown brief export.
+- **Value scorecard**: a five-step pilot tracker (baseline, adoption plan, cross-functional execution, evidence review, next decision) that follows the Baseline / Day 30 view, Stage 3 · SOC and General CS scenarios, three layers with gates and owners, created ≠ valued ≠ verified funnel with live inputs, day-30 decision engine, readouts by altitude, walkthrough mode, Markdown brief export.
 - **Method & evidence**: metric definitions, no-baseline methods, attribution limits, AI governance.
 
 Press **P** for present mode. Notes and the action queue are stored in the browser.
@@ -18,7 +18,7 @@ Press **P** for present mode. Notes and the action queue are stored in the brows
 Offered after the ask, not built into the talk. Stay on this path.
 
 1. **Overview (30 s).** Point to "Your focus today" and the "Stage 3 · SOC value pilot reached day 30" card. Click **Open the value scorecard**.
-2. **Value scorecard (2 min).** The six-step tracker is the plan from slide 15. Toggle **Baseline** then **Day 30**. Show S-09 in the ATT&CK list: owned by the IAM lead, retest on day 37. Click **Mark retested**: the gap closes and the decision moves from Remediate to Expand.
+2. **Value scorecard (2 min).** The five-step tracker is the plan from slide 15. Toggle **Baseline** then **Day 30**. Show S-09 in the ATT&CK list: owned by the IAM lead, retest on day 37. Click **Mark retested**: the gap closes and the decision moves from Remediate to Expand.
 3. **Success AI (30 s).** Type one question, for example "Which gate blocks expansion?". Use text, not voice, in the room.
 
 If someone asks how a number is made, open **Method & evidence**.
