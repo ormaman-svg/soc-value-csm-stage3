@@ -13,15 +13,16 @@ Customer success workspace and SOC Value Scorecard, in the same Google style as 
 
 Press **P** for present mode. Notes and the action queue are stored in the browser.
 
-## 3-minute demo route
+## 5-minute demo route
 
-Offered after the ask, not built into the talk. Stay on this path.
+Part of the deck: slide 16 ("The pilot, running") follows the ask. Stay on this path.
 
-1. **Overview (30 s).** Point to "Your focus today" and the "Stage 3 · SOC value pilot reached day 30" card. Click **Open the value scorecard**.
-2. **Value scorecard (2 min).** The five-step tracker is the plan from slide 15. Toggle **Baseline** then **Day 30**. Show S-09 in the ATT&CK list: owned by the IAM lead, retest on day 37. Click **Mark retested**: the gap closes and the decision moves from Remediate to Expand.
-3. **Success AI (30 s).** Type one question, for example "Which gate blocks expansion?". Use text, not voice, in the room.
+1. **Overview (45 s).** The KPI row (net and gross retention, renewal ARR at risk), "Your focus today", then the "Stage 3 · SOC value pilot reached day 30" card. Click **Open the value scorecard**.
+2. **Value scorecard (2.5 min).** The five-step tracker is the plan from slide 15. Toggle **Baseline** then **Day 30**. Show S-09 in the ATT&CK list: owned by the IAM lead, retest on day 37. Click **Mark retested**: the gap closes and the decision moves from Remediate to Expand. Read the CFO sentence from the readout.
+3. **Customer agent (1 min).** Open Halden Financial: the briefing, then **Meeting prep** for an executive business review.
+4. **Success AI (45 s).** Type one question, for example "Which gate blocks expansion?". Use text, not voice, in the room.
 
-If someone asks how a number is made, open **Method & evidence**.
+If someone asks how a number is made, open **Method & evidence**. If the network fails, stay on slide 16 and walk the four steps from there.
 
 ## Success AI
 
